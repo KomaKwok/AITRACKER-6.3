@@ -22,6 +22,19 @@ export function formatRelativeDate(value: string | null, locale: Locale = "en") 
   });
 }
 
+export function formatDashboardTime(value: string | null, locale: Locale = "en") {
+  if (!value) {
+    return locale === "zh" ? "从未" : "Never";
+  }
+
+  return new Date(value).toLocaleTimeString(locale === "zh" ? "zh-CN" : "en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: locale !== "zh",
+    timeZone: "Asia/Shanghai"
+  });
+}
+
 export function withinDays(date: string, days: number) {
   return isAfter(parseISO(date), subDays(new Date(), days));
 }
