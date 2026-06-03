@@ -1,0 +1,47 @@
+{
+  "OpenAI": {
+    "kind": "official_announcement",
+    "date": "2024-11-08T10:07:00.000Z",
+    "title": "Pricing  OpenAI",
+    "url": "https://openai.com/api/pricing/?utm_source=rachelandreago",
+    "siteName": "openai.com",
+    "checkedAt": "2026-06-03T05:30:38.179Z"
+  },
+  "Anthropic": {
+    "kind": "official_announcement",
+    "date": "2023-07-10T20:10:01.000Z",
+    "title": "Claude 2 \\ Anthropic",
+    "url": "https://www.anthropic.com/news/claude-2",
+    "siteName": "www.anthropic.com",
+    "checkedAt": "2026-06-03T05:30:38.527Z"
+  },
+  "Google": {
+    "kind": "official_page",
+    "date": "2026-06-02T00:00:00.000Z",
+    "title": "Official Google pricing page states: Last updated 2026-06-02 UTC.",
+    "url": "https://ai.google.dev/gemini-api/docs/pricing",
+    "checkedAt": "2026-06-03T05:30:38.527Z"
+  },
+  "DeepSeek": {
+    "kind": "official_announcement",
+    "date": "2025-05-27T16:00:00.000Z",
+    "title": "Change Log | DeepSeek API Docs",
+    "url": "https://api-docs.deepseek.com/updates",
+    "siteName": "DeepSeek",
+    "checkedAt": "2026-06-03T05:30:38.901Z"
+  },
+  "MiniMax": {
+    "kind": "not_stated",
+    "date": null,
+    "title": "Official pricing page does not expose a clear last-updated date in fetched page content.",
+    "url": "https://platform.minimax.io/docs/guides/pricing-paygo",
+    "checkedAt": "2026-06-03T05:30:39.715Z"
+  },
+  "豆包 / 方舟": {
+    "kind": "official_page",
+    "date": "2026-05-28T15:27:23+08:00",
+    "title": "Official Volcengine page states: 最近更新时间：2026.05.28 15:27:23.",
+    "url": "https://www.volcengine.com/docs/82379/2366394?lang=zh",
+    "checkedAt": "2026-06-03T05:30:39.715Z"
+  }
+}

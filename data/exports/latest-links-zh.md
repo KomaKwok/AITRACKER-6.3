@@ -1,0 +1,476 @@
+# AI Tracker 官方动态阅读包
+
+生成时间: 2026-06-03 13:23
+信号总数: 34
+
+## 可直接交给 AI 的分析提示词
+
+```text
+你是互联网商业分析师，不是泛泛总结助手。
+请先过滤掉营销宣传和活动类内容，只保留产品、模型、API、平台能力、定价、下线相关更新。
+然后按公司分别总结：OpenAI、Anthropic、DeepSeek、MiniMax、ByteDance/Doubao。
+每家公司重点回答：
+1. 本次更新究竟改了什么产品能力
+2. 这对开发者、企业客户或终端用户意味着什么
+3. 这更像是功能补丁、平台能力扩张、模型升级，还是商业化动作
+4. 哪些更新最值得持续跟踪
+```
+
+## 最新信号
+
+- [The advisor tool now supports a max_tokens parameter to cap the advisor model's output per call, reducing latency and ou](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-06-02 00:00
+  - 标签: API, Agent, Model Release, Infrastructure
+  - 评分: 一手 100 / 热度 82.5 / 综合 87
+  - 摘要: The advisor tool now supports a max_tokens parameter to cap the advisor model's output per call, reducing latency and output token cost for workloads that don't need full-length advisor responses.
+- [On the Claude API, you are no longer billed for a request when it returns stop_reason: "refusal" without Claude having g](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-06-02 00:00
+  - 标签: API
+  - 评分: 一手 100 / 热度 55 / 综合 80
+  - 摘要: On the Claude API, you are no longer billed for a request when it returns stop_reason: "refusal" without Claude having generated any output.
+- [Claude Managed Agents webhooks , multiagent orchestration , and self-hosted sandboxes are now available on Claude Platfo](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-29 00:00
+  - 标签: API, Agent
+  - 评分: 一手 100 / 热度 61 / 综合 77
+  - 摘要: Claude Managed Agents webhooks , multiagent orchestration , and self-hosted sandboxes are now available on Claude Platform on AWS.
+- [We've launched Claude Opus 4.8 ( claude-opus-4-8 ), our most capable generally available model.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 98 / 综合 94
+  - 摘要: 8 ( claude-opus-4-8 ), our most capable generally available model.
+- [We've launched mid-conversation system messages .](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Model Release, Infrastructure
+  - 评分: 一手 100 / 热度 56.5 / 综合 83
+  - 摘要: We've launched mid-conversation system messages.
+- [The stop_details field on refusal responses is now publicly documented; it returns a category ( cyber , bio , or null ) ](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API
+  - 评分: 一手 100 / 热度 45 / 综合 73
+  - 摘要: The stop_details field on refusal responses is now publicly documented; it returns a category ( cyber , bio , or null ) and a human-readable explanation , so your application can route different classes of refusal to the right next step.
+- [On Claude Opus 4.8, the effort parameter defaults to high across all surfaces, including Claude Code and the Messages AP](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Coding, Model Release
+  - 评分: 一手 100 / 热度 67 / 综合 82
+  - 摘要: 8, the effort parameter defaults to high across all surfaces, including Claude Code and the Messages API.
+- [With adaptive thinking enabled, Claude Opus 4.8 triggers reasoning only when a turn needs it, reducing wasted thinking t](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Model Release
+  - 评分: 一手 100 / 热度 52 / 综合 74
+  - 摘要: With adaptive thinking enabled, Claude Opus 4.
+- [The advisor tool now supports Claude Opus 4.8.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 68 / 综合 81
+  - 摘要: The advisor tool now supports Claude Opus 4.
+- [Fast mode for Claude Opus 4.8 is available as a research preview on the Claude API only.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Model Release
+  - 评分: 一手 100 / 热度 72 / 综合 84
+  - 摘要: 8 is available as a research preview on the Claude API only.
+- [In Claude Code, Workflows are available as a research preview, letting you define and run multi-step agentic plans.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Agent, Coding
+  - 评分: 一手 100 / 热度 76 / 综合 81
+  - 摘要: In Claude Code, Workflows are available as a research preview, letting you define and run multi-step agentic plans.
+- [Batch Skill Import](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-22 08:00
+  - 标签: Agent, Coding
+  - 评分: 一手 100 / 热度 51 / 综合 72
+  - 摘要: Batch Skill Import : Preview GitHub repo contents before installing.
+- [Multi-Step Questionnaire](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-22 08:00
+  - 标签: Agent, Multimodal
+  - 评分: 一手 100 / 热度 61 / 综合 71
+  - 摘要: Multi-Step Questionnaire : Agent can present structured multi-step questions with single/multi-select options, free-text input, and images.
+- [Content Filter Graceful Fallback](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-22 08:00
+  - 标签: Agent, Model Release
+  - 评分: 一手 100 / 热度 63 / 综合 72
+  - 摘要: Content Filter Graceful Fallback : When the model can’t complete a response, the original message returns to the input box with a friendly notice instead of an error.
+- [Avatar Click-to-Upload](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-22 08:00
+  - 标签: Agent, Coding, Multimodal
+  - 评分: 一手 100 / 热度 66 / 综合 73
+  - 摘要: Avatar Click-to-Upload : Click the Agent avatar on the home page to upload a custom image.
+
+## Anthropic
+
+- [The advisor tool now supports a max_tokens parameter to cap the advisor model's output per call, reducing latency and ou](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-06-02 00:00
+  - 标签: API, Agent, Model Release, Infrastructure
+  - 评分: 一手 100 / 热度 82.5 / 综合 87
+  - 摘要: The advisor tool now supports a max_tokens parameter to cap the advisor model's output per call, reducing latency and output token cost for workloads that don't need full-length advisor responses.
+- [On the Claude API, you are no longer billed for a request when it returns stop_reason: "refusal" without Claude having g](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-06-02 00:00
+  - 标签: API
+  - 评分: 一手 100 / 热度 55 / 综合 80
+  - 摘要: On the Claude API, you are no longer billed for a request when it returns stop_reason: "refusal" without Claude having generated any output.
+- [Claude Managed Agents webhooks , multiagent orchestration , and self-hosted sandboxes are now available on Claude Platfo](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-29 00:00
+  - 标签: API, Agent
+  - 评分: 一手 100 / 热度 61 / 综合 77
+  - 摘要: Claude Managed Agents webhooks , multiagent orchestration , and self-hosted sandboxes are now available on Claude Platform on AWS.
+- [We've launched Claude Opus 4.8 ( claude-opus-4-8 ), our most capable generally available model.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 98 / 综合 94
+  - 摘要: 8 ( claude-opus-4-8 ), our most capable generally available model.
+- [We've launched mid-conversation system messages .](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Model Release, Infrastructure
+  - 评分: 一手 100 / 热度 56.5 / 综合 83
+  - 摘要: We've launched mid-conversation system messages.
+- [The stop_details field on refusal responses is now publicly documented; it returns a category ( cyber , bio , or null ) ](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API
+  - 评分: 一手 100 / 热度 45 / 综合 73
+  - 摘要: The stop_details field on refusal responses is now publicly documented; it returns a category ( cyber , bio , or null ) and a human-readable explanation , so your application can route different classes of refusal to the right next step.
+- [On Claude Opus 4.8, the effort parameter defaults to high across all surfaces, including Claude Code and the Messages AP](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Coding, Model Release
+  - 评分: 一手 100 / 热度 67 / 综合 82
+  - 摘要: 8, the effort parameter defaults to high across all surfaces, including Claude Code and the Messages API.
+- [With adaptive thinking enabled, Claude Opus 4.8 triggers reasoning only when a turn needs it, reducing wasted thinking t](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Model Release
+  - 评分: 一手 100 / 热度 52 / 综合 74
+  - 摘要: With adaptive thinking enabled, Claude Opus 4.
+- [The advisor tool now supports Claude Opus 4.8.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 68 / 综合 81
+  - 摘要: The advisor tool now supports Claude Opus 4.
+- [Fast mode for Claude Opus 4.8 is available as a research preview on the Claude API only.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Model Release
+  - 评分: 一手 100 / 热度 72 / 综合 84
+  - 摘要: 8 is available as a research preview on the Claude API only.
+- [In Claude Code, Workflows are available as a research preview, letting you define and run multi-step agentic plans.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-28 00:00
+  - 标签: API, Agent, Coding
+  - 评分: 一手 100 / 热度 76 / 综合 81
+  - 摘要: In Claude Code, Workflows are available as a research preview, letting you define and run multi-step agentic plans.
+
+## MiniMax
+
+- [Batch Skill Import](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-22 08:00
+  - 标签: Agent, Coding
+  - 评分: 一手 100 / 热度 51 / 综合 72
+  - 摘要: Batch Skill Import : Preview GitHub repo contents before installing.
+- [Multi-Step Questionnaire](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-22 08:00
+  - 标签: Agent, Multimodal
+  - 评分: 一手 100 / 热度 61 / 综合 71
+  - 摘要: Multi-Step Questionnaire : Agent can present structured multi-step questions with single/multi-select options, free-text input, and images.
+- [Content Filter Graceful Fallback](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-22 08:00
+  - 标签: Agent, Model Release
+  - 评分: 一手 100 / 热度 63 / 综合 72
+  - 摘要: Content Filter Graceful Fallback : When the model can’t complete a response, the original message returns to the input box with a friendly notice instead of an error.
+- [Avatar Click-to-Upload](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-22 08:00
+  - 标签: Agent, Coding, Multimodal
+  - 评分: 一手 100 / 热度 66 / 综合 73
+  - 摘要: Avatar Click-to-Upload : Click the Agent avatar on the home page to upload a custom image.
+- [Unified folder permissions](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Platform
+  - 发布时间: 2026-05-22 08:00
+  - 标签: Agent, Search
+  - 评分: 一手 100 / 热度 60 / 综合 71
+  - 摘要: Unified folder permissions: one authorization covers read, write, edit, and search — no repeated prompts for the same folder.
+- [Fixed Agent tool calls passing inaccurate parameters in some scenarios](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-05-22 08:00
+  - 标签: Agent
+  - 评分: 一手 100 / 热度 66 / 综合 70
+  - 摘要: Fixed Agent tool calls passing inaccurate parameters in some scenarios.
+
+## DeepSeek
+
+- [DeepSeek-V4 ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
+  - 类型: Model
+  - 发布时间: 2026-04-24 08:00
+  - 标签: API, Model Release
+  - 评分: 一手 85 / 热度 72 / 综合 77
+  - 摘要: The DeepSeek API now supports V4-Pro and V4-Flash, available via both the OpenAI ChatCompletions interface and the Anthropic interface.
+- [DeepSeek-V3.1-Terminus ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
+  - 类型: Model
+  - 发布时间: 2025-09-22 08:00
+  - 标签: API, Model Release
+  - 评分: 一手 85 / 热度 62 / 综合 61
+  - 摘要: Both deepseek-chat and deepseek-reasoner have been upgraded to DeepSeek-V3.
+- [DeepSeek-V3.1 ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
+  - 类型: Model
+  - 发布时间: 2025-08-21 08:00
+  - 标签: API, Model Release
+  - 评分: 一手 85 / 热度 62 / 综合 65
+  - 摘要: Both deepseek-chat and deepseek-reasoner have been upgraded to DeepSeek-V3.
+- [deepseek-reasoner ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
+  - 类型: Feature
+  - 发布时间: 2025-05-28 08:00
+  - 标签: API, Model Release
+  - 评分: 一手 85 / 热度 62 / 综合 61
+  - 摘要: deepseek-reasoner Model Upgraded to DeepSeek-R1-0528: Enhanced Reasoning Capabilities Significant benchmark improvements (Pass@1) AIME 2025: 70.
+- [deepseek-chat ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
+  - 类型: Feature
+  - 发布时间: 2025-03-24 08:00
+  - 标签: API, Model Release
+  - 评分: 一手 85 / 热度 62 / 综合 61
+  - 摘要: deepseek-chat Model Upgraded to DeepSeek-V3-0324: Enhanced Reasoning Capabilities Significant improvements in benchmark performance: MMLU-Pro: 75.
+- [deepseek-coder & deepseek-chat Upgraded to DeepSeek V2.5 Model ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
+  - 类型: Model
+  - 发布时间: 2024-09-05 08:00
+  - 标签: API, Coding, Model Release
+  - 评分: 一手 85 / 热度 77 / 综合 73
+  - 摘要: The DeepSeek V2 Chat and DeepSeek Coder V2 models have been merged and upgraded into the new model, DeepSeek V2.
+- [API Launches Context Caching on Disk Technology ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
+  - 类型: Feature
+  - 发布时间: 2024-08-02 08:00
+  - 标签: API
+  - 评分: 一手 85 / 热度 65 / 综合 66
+  - 摘要: The DeepSeek API has innovatively adopted hard disk caching, reducing prices by another order of magnitude.
+
+## OpenAI
+
+- [Reasoning effort now defaults to medium](https://developers.openai.com/api/docs/changelog)
+  - 公司: OpenAI
+  - 产品: OpenAI API
+  - 来源: OpenAI API Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-04-01 00:00
+  - 标签: API
+  - 评分: 一手 100 / 热度 45 / 综合 63
+  - 摘要: Reasoning effort now defaults to medium.
+- [When image_detail is unset or set to auto , the model now uses original behavior](https://developers.openai.com/api/docs/changelog)
+  - 公司: OpenAI
+  - 产品: OpenAI API
+  - 来源: OpenAI API Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-04-01 00:00
+  - 标签: API, Multimodal, Model Release
+  - 评分: 一手 100 / 热度 67 / 综合 70
+  - 摘要: When image_detail is unset or set to auto , the model now uses original behavior.
+- [running agents in controlled sandboxes](https://developers.openai.com/api/docs/changelog)
+  - 公司: OpenAI
+  - 产品: OpenAI API
+  - 来源: OpenAI API Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-04-01 00:00
+  - 标签: API, Agent
+  - 评分: 一手 100 / 热度 61 / 综合 67
+  - 摘要: running agents in controlled sandboxes.
+- [Tool search in the Responses API, which lets models defer large tool surfaces until runtime to reduce token usage, prese](https://developers.openai.com/api/docs/changelog)
+  - 公司: OpenAI
+  - 产品: OpenAI API
+  - 来源: OpenAI API Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-03-01 00:00
+  - 标签: API, Agent, Search, Model Release
+  - 评分: 一手 100 / 热度 100 / 综合 77
+  - 摘要: Tool search in the Responses API, which lets models defer large tool surfaces until runtime to reduce token usage, preserve cache performance, and improve latency.
+- [Built-in Computer use support in GPT-5](https://developers.openai.com/api/docs/changelog)
+  - 公司: OpenAI
+  - 产品: OpenAI API
+  - 来源: OpenAI API Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-03-01 00:00
+  - 标签: API, Agent
+  - 评分: 一手 100 / 热度 71 / 综合 72
+  - 摘要: Built-in Computer use support in GPT-5.
+- [A 1M token context window and native Compaction support for longer-running agent workflows](https://developers.openai.com/api/docs/changelog)
+  - 公司: OpenAI
+  - 产品: OpenAI API
+  - 来源: OpenAI API Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-03-01 00:00
+  - 标签: API, Agent
+  - 评分: 一手 100 / 热度 71 / 综合 72
+  - 摘要: A 1M token context window and native Compaction support for longer-running agent workflows.
+
+## ByteDance
+
+- [模型插件联网基础版、联网plus版、联网pro版下线公告](https://www.volcengine.com/docs/82379/1371844?lang=zh)
+  - 公司: ByteDance
+  - 产品: Doubao / Ark
+  - 来源: Volcengine Ark Product Announcements / China
+  - 类型: Platform
+  - 发布时间: 2026-01-16 15:30
+  - 标签: API
+  - 评分: 一手 85 / 热度 45 / 综合 54
+  - 摘要: Doubao / Ark official announcement: 模型插件联网基础版、联网plus版、联网pro版下线公告.
+- [高代码 SDK Arkitect 正式发布](https://www.volcengine.com/docs/82379/1434278?lang=zh)
+  - 公司: ByteDance
+  - 产品: Doubao / Ark Models
+  - 来源: Volcengine Ark Model Announcements / China
+  - 类型: Model
+  - 发布时间: 2026-01-16 15:30
+  - 标签: Model Release, Coding
+  - 评分: 一手 85 / 热度 62 / 综合 61
+  - 摘要: Doubao / Ark Models official announcement: 高代码 SDK Arkitect 正式发布.
+- [火山方舟 SDK V1/V2下线公告及迁移指引](https://www.volcengine.com/docs/82379/1355331?lang=zh)
+  - 公司: ByteDance
+  - 产品: Doubao / Ark Models
+  - 来源: Volcengine Ark Model Announcements / China
+  - 类型: Model
+  - 发布时间: 2026-01-16 15:30
+  - 标签: Model Release, Coding
+  - 评分: 一手 85 / 热度 62 / 综合 61
+  - 摘要: Doubao / Ark Models official announcement: 火山方舟 SDK V1/V2下线公告及迁移指引.
+- [模型下线公告](https://www.volcengine.com/docs/82379/1350667?lang=zh)
+  - 公司: ByteDance
+  - 产品: Doubao / Ark
+  - 来源: Volcengine Ark Product Announcements / China
+  - 类型: Platform
+  - 发布时间: 2025-12-19 10:00
+  - 标签: API
+  - 评分: 一手 85 / 热度 45 / 综合 54
+  - 摘要: Doubao / Ark official announcement: 模型下线公告.
