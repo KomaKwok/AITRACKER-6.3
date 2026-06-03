@@ -6,7 +6,7 @@ import { withPricingEvidence } from "@/lib/data/pricing-evidence";
 import { pricingSnapshot } from "@/lib/data/pricing-snapshot";
 import { getDictionary } from "@/lib/i18n";
 import { getDashboardData, splitByRegion } from "@/lib/radar/repository";
-import { formatRelativeDate, hasReliableRecency, withinDays } from "@/lib/utils";
+import { formatDashboardTime, formatRelativeDate, hasReliableRecency, withinDays } from "@/lib/utils";
 
 export default async function DashboardPage() {
   const { locale, t } = await getDictionary();
@@ -42,9 +42,7 @@ export default async function DashboardPage() {
                 </div>
                 <div className="mt-2 flex items-end justify-between gap-4">
                   <div className="text-3xl font-semibold tracking-tight text-ink">
-                    {data.lastUpdatedAt
-                      ? new Date(data.lastUpdatedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-                      : t.common.never}
+                    {formatDashboardTime(data.lastUpdatedAt, locale)}
                   </div>
                   <div className="text-sm text-slate-500">{formatRelativeDate(data.lastUpdatedAt, locale)}</div>
                 </div>
