@@ -1,23 +1,27 @@
 import { NextResponse } from "next/server";
 import { refreshRadarDataWithOptions } from "@/lib/radar/fetchers";
 
-export async function POST() {
-  try {
-    const store = await refreshRadarDataWithOptions();
+let refreshInProgress = false;
 
+export async function POST() {
+  if (refreshInProgress) {
     return NextResponse.json({
       ok: true,
-      message: `Refresh complete. ${store.signals.length} signals in store.`,
-      lastUpdatedAt: store.lastUpdatedAt
+      message: "Refresh is already running in the background."
     });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown refresh error";
-    return NextResponse.json(
-      {
-        ok: false,
-        message: `Refresh failed: ${message}`
-      },
-      { status: 500 }
-    );
   }
+
+  refreshInProgress = true;
+  refreshRadarDataWithOptions()
+    .catch((error) => {
+      console.error("[refresh] background refresh failed", error);
+    })
+    .finally(() => {
+      refreshInProgress = false;
+    });
+
+  return NextResponse.json({
+    ok: true,
+    message: "Refresh started. New data will appear after the background job finishes."
+  });
 }
