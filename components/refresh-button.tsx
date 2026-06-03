@@ -34,6 +34,11 @@ export function RefreshButton({
       startTransition(() => {
         router.refresh();
       });
+      window.setTimeout(() => {
+        startTransition(() => {
+          router.refresh();
+        });
+      }, 45000);
     } catch {
       setMessage(labels.failed);
     } finally {
