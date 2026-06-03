@@ -2,6 +2,9 @@
   "name": "ai-radar",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "clean": "powershell -Command \"if (Test-Path .next) { Remove-Item -Recurse -Force .next }\"",
