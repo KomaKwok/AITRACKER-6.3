@@ -1,6 +1,6 @@
 export type Region = "Global" | "China";
 
-export type SourceType = "Official";
+export type SourceType = "Official" | "Research";
 
 export type FetchStrategy =
   | "openai-api-changelog"
@@ -9,9 +9,10 @@ export type FetchStrategy =
   | "deepseek-api-updates"
   | "minimax-agent-changelog"
   | "doubao-product-announcements"
-  | "doubao-model-announcements";
+  | "doubao-model-announcements"
+  | "huggingface-daily-papers";
 
-export type SignalCategory = "Feature" | "Model" | "Platform" | "Deprecation" | "Pricing";
+export type SignalCategory = "Feature" | "Model" | "Platform" | "Deprecation" | "Pricing" | "Paper";
 
 export type Tag =
   | "Agent"
@@ -22,7 +23,8 @@ export type Tag =
   | "Enterprise"
   | "Model Release"
   | "API"
-  | "Infrastructure";
+  | "Infrastructure"
+  | "Research";
 
 export interface Signal {
   id: string;
@@ -45,6 +47,7 @@ export interface Signal {
   signalScore: number;
   rawContentSnippet: string;
   dedupeHash: string;
+  sourceRank?: number;
 }
 
 export interface Source {
@@ -80,9 +83,21 @@ export interface TrendSummary {
   chinaVsGlobal: string;
 }
 
+export interface DashboardBrief {
+  headline: string;
+  headlineZh: string;
+  summary: string;
+  summaryZh: string;
+  bullets: string[];
+  bulletsZh: string[];
+  generatedAt: string;
+  sourceSignalIds: string[];
+}
+
 export interface RadarStore {
   sources: Source[];
   signals: Signal[];
   trendSummary: TrendSummary;
+  brief?: DashboardBrief;
   lastUpdatedAt: string | null;
 }

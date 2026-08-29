@@ -7,8 +7,9 @@ export interface RawFetchedItem {
   product: string;
   publishedAt: string;
   snippet: string;
-  category: "Feature" | "Model" | "Platform" | "Deprecation" | "Pricing";
+  category: "Feature" | "Model" | "Platform" | "Deprecation" | "Pricing" | "Paper";
   tags?: Tag[];
+  sourceRank?: number;
 }
 
 export interface SourceAdapter {

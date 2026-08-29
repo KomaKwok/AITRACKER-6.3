@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { enrichSignalWithAi } from "@/lib/ai/client";
+import { enrichSignalWithAi, generateDashboardBrief } from "@/lib/ai/client";
 import { defaultSources } from "@/lib/data/default-sources";
 import { readStore, writeStore } from "@/lib/data/store";
 import { adapterRegistry } from "@/lib/radar/adapters";
@@ -87,13 +87,14 @@ async function fetchSourceItems(source: Source) {
   }
 
   const items = await adapter.fetch(source);
-  return items.filter(isProductSignal);
+  return source.sourceType === "Research" ? items.slice(0, 10) : items.filter(isProductSignal);
 }
 
 async function normalizeSignal(source: Source, item: RawFetchedItem): Promise<Signal> {
   const ai = await enrichSignalWithAi({
     title: item.title,
-    snippet: item.snippet
+    snippet: item.snippet,
+    contentKind: item.category === "Paper" ? "AI research paper" : "AI product update"
   });
   const tags = (item.tags?.length ? item.tags : ai.tags).slice(0, 4) as Tag[];
   const firstHandScore = calculateFirstHandScore({
@@ -137,7 +138,8 @@ async function normalizeSignal(source: Source, item: RawFetchedItem): Promise<Si
     heatScore,
     signalScore,
     rawContentSnippet: item.snippet,
-    dedupeHash
+    dedupeHash,
+    ...(item.sourceRank ? { sourceRank: item.sourceRank } : {})
   };
 }
 
@@ -172,8 +174,12 @@ async function runRefreshForSources(store: Awaited<ReturnType<typeof readStore>>
 
       source.lastFetchStatus = rawItems.length ? "success" : "empty";
       source.lastFetchMessage = rawItems.length
-        ? `Stored ${rawItems.length} product updates from ${source.product}`
-        : "No qualifying product updates found on the official page";
+        ? source.sourceType === "Research"
+          ? `Stored ${rawItems.length} curated papers from the latest Daily Papers batch`
+          : `Stored ${rawItems.length} product updates from ${source.product}`
+        : source.sourceType === "Research"
+          ? "No qualifying papers found in the Daily Papers feed"
+          : "No qualifying product updates found on the official page";
       if (rawItems.length) {
         source.lastSuccessfulAt = new Date().toISOString();
       }
@@ -192,11 +198,13 @@ async function runRefreshForSources(store: Awaited<ReturnType<typeof readStore>>
   }
 
   nextSignals.sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt));
+  const brief = await generateDashboardBrief(nextSignals);
 
   const updatedStore = {
     sources: allSources.map((source) => sources.find((candidate) => candidate.id === source.id) ?? source),
     signals: nextSignals.slice(0, 300),
     trendSummary: generateTrendSummary(nextSignals),
+    brief,
     lastUpdatedAt: new Date().toISOString()
   };
 

@@ -33,12 +33,6 @@ function runTask(scriptName) {
 async function refreshInBackground() {
   await runTask("fetch");
 
-  if (process.env.BOCHA_API_KEY) {
-    await runTask("pricing:evidence");
-  } else {
-    console.log("[startup] BOCHA_API_KEY is missing; skipped pricing:evidence.");
-  }
-
   if (process.env.DEEPSEEK_API_KEY || process.env.OPENAI_API_KEY) {
     await runTask("translate:titles");
   } else {

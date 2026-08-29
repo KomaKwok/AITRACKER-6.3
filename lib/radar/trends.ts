@@ -24,8 +24,9 @@ function buildTrendPoints(signals: Signal[]) {
 
 export function generateTrendSummary(signals: Signal[]): TrendSummary {
   const now = new Date();
-  const last7dSignals = signals.filter((signal) => new Date(signal.publishedAt) >= subDays(now, 7));
-  const last30dSignals = signals.filter((signal) => new Date(signal.publishedAt) >= subDays(now, 30));
+  const productSignals = signals.filter((signal) => signal.category !== "Paper");
+  const last7dSignals = productSignals.filter((signal) => new Date(signal.publishedAt) >= subDays(now, 7));
+  const last30dSignals = productSignals.filter((signal) => new Date(signal.publishedAt) >= subDays(now, 30));
 
   const chinaCount = last30dSignals.filter((signal) => signal.region === "China").length;
   const globalCount = last30dSignals.filter((signal) => signal.region === "Global").length;

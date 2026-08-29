@@ -1,13 +1,13 @@
 import { loadEnvConfig } from "@next/env";
-import { updatePricingEvidence } from "@/lib/pricing/bocha-evidence";
+import { refreshPricingSnapshot } from "@/lib/pricing/refresh";
 
 loadEnvConfig(process.cwd());
 
 async function main() {
-  const evidence = await updatePricingEvidence();
+  const snapshot = await refreshPricingSnapshot();
 
-  console.log(`Updated pricing evidence for ${Object.keys(evidence).length} companies.`);
-  console.log("Evidence file: data/pricing-evidence.json");
+  console.log(`Verified ${snapshot.verifiedCount}/${snapshot.entries.length} flagship prices.`);
+  console.log("Snapshot file: data/pricing-snapshot.json");
 }
 
 main().catch((error) => {

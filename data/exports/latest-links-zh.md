@@ -1,7 +1,7 @@
 # AI Tracker 官方动态阅读包
 
-生成时间: 2026-06-03 13:23
-信号总数: 34
+生成时间: 2026-08-22 11:09
+信号总数: 49
 
 ## 可直接交给 AI 的分析提示词
 
@@ -18,303 +18,171 @@
 
 ## 最新信号
 
-- [The advisor tool now supports a max_tokens parameter to cap the advisor model's output per call, reducing latency and ou](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
+- [DeepSeek-V4-Flash-Vision-Exp Release ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
   - 类型: Model
-  - 发布时间: 2026-06-02 00:00
-  - 标签: API, Agent, Model Release, Infrastructure
-  - 评分: 一手 100 / 热度 82.5 / 综合 87
-  - 摘要: The advisor tool now supports a max_tokens parameter to cap the advisor model's output per call, reducing latency and output token cost for workloads that don't need full-length advisor responses.
-- [On the Claude API, you are no longer billed for a request when it returns stop_reason: "refusal" without Claude having g](https://docs.anthropic.com/en/release-notes/api)
+  - 发布时间: 2026-08-21 08:00
+  - 标签: API, Coding, Multimodal, Model Release
+  - 评分: 一手 85 / 热度 92 / 综合 88
+  - 摘要: Today, the new multimodal vision understanding model DeepSeek-V4-Flash-Vision-Exp is now available on the DeepSeek API platform.
+- [FlashPrefill V2: Block-Sparse Prefill Attention for Long-Context LLM Serving](https://huggingface.co/papers/2608.19758)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 16:02
+  - 标签: Research, Model Release, Infrastructure
+  - 评分: 一手 86 / 热度 96.5 / 综合 90
+  - 摘要: FlashPrefill V2 improves long-context serving via mean-corrected sparse attention, optimized GPU operators, and framework integration, achieving large speedups over dense baselines.
+- [EnvHarness: Awakening Static Worlds for Agent Learning](https://huggingface.co/papers/2608.19880)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Agent
+  - 评分: 一手 86 / 热度 71 / 综合 82
+  - 摘要: EnvHarness and EnvRigger dynamically reshape static environments via programmable plugins to target agent weaknesses and improve reinforcement learning co-evolution.
+- [4DAnyone: Create Anyone in 4D from a Casual Monocular Video](https://huggingface.co/papers/2608.20335)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Multimodal, Model Release
+  - 评分: 一手 86 / 热度 97 / 综合 92
+  - 摘要: 4DAnyone reconstructs 4D humans from monocular video by generating multiview-consistent videos and lifting them into 4D Gaussian Splatting, using reference and target context designs to overcome scaling bottlenecks.
+- [SWE-bench Science: Can Coding Agents Resolve Engineering Tasks in Science?](https://huggingface.co/papers/2608.19799)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Agent, Coding, Search
+  - 评分: 一手 86 / 热度 100 / 综合 92
+  - 摘要: SWE-bench Science benchmarks coding agents on scientific software repair, revealing failure mechanisms and mixed effects of scientific guidance.
+- [WithEveryone: Unified Planning and Identity Grounding for Group Image Generation](https://huggingface.co/papers/2608.20336)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Multimodal, Model Release
+  - 评分: 一手 86 / 热度 100 / 综合 92
+  - 摘要: WithEveryone enables reliable identity-preserving group image generation for up to ten people by grounding identities to layout plans and using region-based identity losses.
+- [MemTrapBench: Benchmarking Cognitive Traps in LLM Memory Use](https://huggingface.co/papers/2608.20202)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Model Release
+  - 评分: 一手 86 / 热度 72 / 综合 85
+  - 摘要: Retrieved memories can induce reasoning errors and belief distortions in large language models, and an inference-time strategy helps avoid these cognitive traps while maintaining benchmark performance.
+- [Repo0: Design-Driven Zero-to-All Code Generation](https://huggingface.co/papers/2608.19854)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Agent, Coding, Model Release
+  - 评分: 一手 86 / 热度 83 / 综合 82
+  - 摘要: Repo0 uses a dual-graph architectural state and modularity-guided structural evolution to generate complete software repositories from natural-language requirements with high functionality coverage.
+- [We've released v1.0 of the Python SDK .](https://docs.anthropic.com/en/release-notes/api)
   - 公司: Anthropic
   - 产品: Claude API
   - 来源: Anthropic API Release Notes / Global
+  - 类型: Deprecation
+  - 发布时间: 2026-08-20 00:00
+  - 标签: API, Agent, Coding, Model Release
+  - 评分: 一手 100 / 热度 83 / 综合 94
+  - 摘要: The SDK's HTTP layer moves from httpx to httpx2 , a maintained, API-compatible fork: build custom http_client , Timeout , and transport objects from httpx2 (the DefaultHttpxClient helpers are unchanged), and call httpx2.
+- [H3 video generation](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
   - 类型: Feature
-  - 发布时间: 2026-06-02 00:00
-  - 标签: API
-  - 评分: 一手 100 / 热度 55 / 综合 80
-  - 摘要: On the Claude API, you are no longer billed for a request when it returns stop_reason: "refusal" without Claude having generated any output.
-- [Claude Managed Agents webhooks , multiagent orchestration , and self-hosted sandboxes are now available on Claude Platfo](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-29 00:00
-  - 标签: API, Agent
-  - 评分: 一手 100 / 热度 61 / 综合 77
-  - 摘要: Claude Managed Agents webhooks , multiagent orchestration , and self-hosted sandboxes are now available on Claude Platform on AWS.
-- [We've launched Claude Opus 4.8 ( claude-opus-4-8 ), our most capable generally available model.](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Agent, Model Release
-  - 评分: 一手 100 / 热度 98 / 综合 94
-  - 摘要: 8 ( claude-opus-4-8 ), our most capable generally available model.
-- [We've launched mid-conversation system messages .](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Model Release, Infrastructure
-  - 评分: 一手 100 / 热度 56.5 / 综合 83
-  - 摘要: We've launched mid-conversation system messages.
-- [The stop_details field on refusal responses is now publicly documented; it returns a category ( cyber , bio , or null ) ](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API
-  - 评分: 一手 100 / 热度 45 / 综合 73
-  - 摘要: The stop_details field on refusal responses is now publicly documented; it returns a category ( cyber , bio , or null ) and a human-readable explanation , so your application can route different classes of refusal to the right next step.
-- [On Claude Opus 4.8, the effort parameter defaults to high across all surfaces, including Claude Code and the Messages AP](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Coding, Model Release
-  - 评分: 一手 100 / 热度 67 / 综合 82
-  - 摘要: 8, the effort parameter defaults to high across all surfaces, including Claude Code and the Messages API.
-- [With adaptive thinking enabled, Claude Opus 4.8 triggers reasoning only when a turn needs it, reducing wasted thinking t](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Model Release
-  - 评分: 一手 100 / 热度 52 / 综合 74
-  - 摘要: With adaptive thinking enabled, Claude Opus 4.
-- [The advisor tool now supports Claude Opus 4.8.](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Agent, Model Release
+  - 发布时间: 2026-08-19 08:00
+  - 标签: Agent, Multimodal, Model Release
   - 评分: 一手 100 / 热度 68 / 综合 81
-  - 摘要: The advisor tool now supports Claude Opus 4.
-- [Fast mode for Claude Opus 4.8 is available as a research preview on the Claude API only.](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Model Release
-  - 评分: 一手 100 / 热度 72 / 综合 84
-  - 摘要: 8 is available as a research preview on the Claude API only.
-- [In Claude Code, Workflows are available as a research preview, letting you define and run multi-step agentic plans.](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Agent, Coding
-  - 评分: 一手 100 / 热度 76 / 综合 81
-  - 摘要: In Claude Code, Workflows are available as a research preview, letting you define and run multi-step agentic plans.
-- [Batch Skill Import](https://agent.minimax.io/docs/changelog)
+  - 摘要: H3 video generation: The flagship H3 video model is now integrated.
+- [MCP Servers](https://agent.minimax.io/docs/changelog)
   - 公司: MiniMax
   - 产品: MiniMax Agent
   - 来源: MiniMax Agent Changelog / Global
   - 类型: Feature
-  - 发布时间: 2026-05-22 08:00
-  - 标签: Agent, Coding
-  - 评分: 一手 100 / 热度 51 / 综合 72
-  - 摘要: Batch Skill Import : Preview GitHub repo contents before installing.
-- [Multi-Step Questionnaire](https://agent.minimax.io/docs/changelog)
-  - 公司: MiniMax
-  - 产品: MiniMax Agent
-  - 来源: MiniMax Agent Changelog / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-22 08:00
-  - 标签: Agent, Multimodal
-  - 评分: 一手 100 / 热度 61 / 综合 71
-  - 摘要: Multi-Step Questionnaire : Agent can present structured multi-step questions with single/multi-select options, free-text input, and images.
-- [Content Filter Graceful Fallback](https://agent.minimax.io/docs/changelog)
-  - 公司: MiniMax
-  - 产品: MiniMax Agent
-  - 来源: MiniMax Agent Changelog / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-22 08:00
-  - 标签: Agent, Model Release
-  - 评分: 一手 100 / 热度 63 / 综合 72
-  - 摘要: Content Filter Graceful Fallback : When the model can’t complete a response, the original message returns to the input box with a friendly notice instead of an error.
-- [Avatar Click-to-Upload](https://agent.minimax.io/docs/changelog)
-  - 公司: MiniMax
-  - 产品: MiniMax Agent
-  - 来源: MiniMax Agent Changelog / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-22 08:00
-  - 标签: Agent, Coding, Multimodal
-  - 评分: 一手 100 / 热度 66 / 综合 73
-  - 摘要: Avatar Click-to-Upload : Click the Agent avatar on the home page to upload a custom image.
-
-## Anthropic
-
-- [The advisor tool now supports a max_tokens parameter to cap the advisor model's output per call, reducing latency and ou](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-06-02 00:00
-  - 标签: API, Agent, Model Release, Infrastructure
-  - 评分: 一手 100 / 热度 82.5 / 综合 87
-  - 摘要: The advisor tool now supports a max_tokens parameter to cap the advisor model's output per call, reducing latency and output token cost for workloads that don't need full-length advisor responses.
-- [On the Claude API, you are no longer billed for a request when it returns stop_reason: "refusal" without Claude having g](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Feature
-  - 发布时间: 2026-06-02 00:00
-  - 标签: API
-  - 评分: 一手 100 / 热度 55 / 综合 80
-  - 摘要: On the Claude API, you are no longer billed for a request when it returns stop_reason: "refusal" without Claude having generated any output.
-- [Claude Managed Agents webhooks , multiagent orchestration , and self-hosted sandboxes are now available on Claude Platfo](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-29 00:00
-  - 标签: API, Agent
-  - 评分: 一手 100 / 热度 61 / 综合 77
-  - 摘要: Claude Managed Agents webhooks , multiagent orchestration , and self-hosted sandboxes are now available on Claude Platform on AWS.
-- [We've launched Claude Opus 4.8 ( claude-opus-4-8 ), our most capable generally available model.](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Agent, Model Release
-  - 评分: 一手 100 / 热度 98 / 综合 94
-  - 摘要: 8 ( claude-opus-4-8 ), our most capable generally available model.
-- [We've launched mid-conversation system messages .](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Model Release, Infrastructure
-  - 评分: 一手 100 / 热度 56.5 / 综合 83
-  - 摘要: We've launched mid-conversation system messages.
-- [The stop_details field on refusal responses is now publicly documented; it returns a category ( cyber , bio , or null ) ](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API
-  - 评分: 一手 100 / 热度 45 / 综合 73
-  - 摘要: The stop_details field on refusal responses is now publicly documented; it returns a category ( cyber , bio , or null ) and a human-readable explanation , so your application can route different classes of refusal to the right next step.
-- [On Claude Opus 4.8, the effort parameter defaults to high across all surfaces, including Claude Code and the Messages AP](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Coding, Model Release
-  - 评分: 一手 100 / 热度 67 / 综合 82
-  - 摘要: 8, the effort parameter defaults to high across all surfaces, including Claude Code and the Messages API.
-- [With adaptive thinking enabled, Claude Opus 4.8 triggers reasoning only when a turn needs it, reducing wasted thinking t](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Model Release
-  - 评分: 一手 100 / 热度 52 / 综合 74
-  - 摘要: With adaptive thinking enabled, Claude Opus 4.
-- [The advisor tool now supports Claude Opus 4.8.](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Agent, Model Release
-  - 评分: 一手 100 / 热度 68 / 综合 81
-  - 摘要: The advisor tool now supports Claude Opus 4.
-- [Fast mode for Claude Opus 4.8 is available as a research preview on the Claude API only.](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Model
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Model Release
-  - 评分: 一手 100 / 热度 72 / 综合 84
-  - 摘要: 8 is available as a research preview on the Claude API only.
-- [In Claude Code, Workflows are available as a research preview, letting you define and run multi-step agentic plans.](https://docs.anthropic.com/en/release-notes/api)
-  - 公司: Anthropic
-  - 产品: Claude API
-  - 来源: Anthropic API Release Notes / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-28 00:00
-  - 标签: API, Agent, Coding
-  - 评分: 一手 100 / 热度 76 / 综合 81
-  - 摘要: In Claude Code, Workflows are available as a research preview, letting you define and run multi-step agentic plans.
-
-## MiniMax
-
-- [Batch Skill Import](https://agent.minimax.io/docs/changelog)
-  - 公司: MiniMax
-  - 产品: MiniMax Agent
-  - 来源: MiniMax Agent Changelog / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-22 08:00
-  - 标签: Agent, Coding
-  - 评分: 一手 100 / 热度 51 / 综合 72
-  - 摘要: Batch Skill Import : Preview GitHub repo contents before installing.
-- [Multi-Step Questionnaire](https://agent.minimax.io/docs/changelog)
-  - 公司: MiniMax
-  - 产品: MiniMax Agent
-  - 来源: MiniMax Agent Changelog / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-22 08:00
-  - 标签: Agent, Multimodal
-  - 评分: 一手 100 / 热度 61 / 综合 71
-  - 摘要: Multi-Step Questionnaire : Agent can present structured multi-step questions with single/multi-select options, free-text input, and images.
-- [Content Filter Graceful Fallback](https://agent.minimax.io/docs/changelog)
-  - 公司: MiniMax
-  - 产品: MiniMax Agent
-  - 来源: MiniMax Agent Changelog / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-22 08:00
-  - 标签: Agent, Model Release
-  - 评分: 一手 100 / 热度 63 / 综合 72
-  - 摘要: Content Filter Graceful Fallback : When the model can’t complete a response, the original message returns to the input box with a friendly notice instead of an error.
-- [Avatar Click-to-Upload](https://agent.minimax.io/docs/changelog)
-  - 公司: MiniMax
-  - 产品: MiniMax Agent
-  - 来源: MiniMax Agent Changelog / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-22 08:00
-  - 标签: Agent, Coding, Multimodal
-  - 评分: 一手 100 / 热度 66 / 综合 73
-  - 摘要: Avatar Click-to-Upload : Click the Agent avatar on the home page to upload a custom image.
-- [Unified folder permissions](https://agent.minimax.io/docs/changelog)
-  - 公司: MiniMax
-  - 产品: MiniMax Agent
-  - 来源: MiniMax Agent Changelog / Global
-  - 类型: Platform
-  - 发布时间: 2026-05-22 08:00
-  - 标签: Agent, Search
-  - 评分: 一手 100 / 热度 60 / 综合 71
-  - 摘要: Unified folder permissions: one authorization covers read, write, edit, and search — no repeated prompts for the same folder.
-- [Fixed Agent tool calls passing inaccurate parameters in some scenarios](https://agent.minimax.io/docs/changelog)
-  - 公司: MiniMax
-  - 产品: MiniMax Agent
-  - 来源: MiniMax Agent Changelog / Global
-  - 类型: Feature
-  - 发布时间: 2026-05-22 08:00
+  - 发布时间: 2026-08-19 08:00
   - 标签: Agent
-  - 评分: 一手 100 / 热度 66 / 综合 70
-  - 摘要: Fixed Agent tool calls passing inaccurate parameters in some scenarios.
+  - 评分: 一手 100 / 热度 46 / 综合 71
+  - 摘要: MCP Servers: Added a dedicated configuration page for viewing, adding, and managing MCP Servers in one place.
+- [Text selection comments and preview](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 08:00
+  - 标签: Agent
+  - 评分: 一手 100 / 热度 46 / 综合 74
+  - 摘要: Text selection comments and preview: You can comment on selected text, and preview flows for markdown, SVG, LaTeX, and similar files are smoother.
+- [BYOK](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 08:00
+  - 标签: Agent, Model Release
+  - 评分: 一手 100 / 热度 73 / 综合 82
+  - 摘要: BYOK: Configure Model ID, context window, max output tokens, and reasoning level in custom model settings.
+- [FACET: Preserving Source Intent and Executable State in Terminal Task Synthesis](https://huggingface.co/papers/2608.18580)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-19 08:00
+  - 标签: Research, Agent, Multimodal, Model Release
+  - 评分: 一手 86 / 热度 93 / 综合 86
+  - 摘要: FACET constructs executable terminal tasks by preserving source intent and grounding instructions, solutions, and verifiers in a shared repaired environment to enable scalable agent training.
+- [The computer use tool is out of beta on the Claude API as the computer_toolset_20260801 toolset: no beta header, batch a](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 78 / 综合 87
+  - 摘要: The computer use tool is out of beta on the Claude API as the computer_toolset_20260801 toolset: no beta header, batch actions (several actions in one turn), zoom enabled by default, and per-member configuration through configs.
 
 ## DeepSeek
 
+- [DeepSeek-V4-Flash-Vision-Exp Release ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
+  - 类型: Model
+  - 发布时间: 2026-08-21 08:00
+  - 标签: API, Coding, Multimodal, Model Release
+  - 评分: 一手 85 / 热度 92 / 综合 88
+  - 摘要: Today, the new multimodal vision understanding model DeepSeek-V4-Flash-Vision-Exp is now available on the DeepSeek API platform.
+- [DeepSeek-V4-Pro Update ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
+  - 类型: Model
+  - 发布时间: 2026-08-13 08:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 85 / 热度 98 / 综合 83
+  - 摘要: The GA release of DeepSeek-V4-Pro has been rolled out on the APP, Web, and API.
+- [DeepSeek-V4-Flash Update ​](https://api-docs.deepseek.com/updates/)
+  - 公司: DeepSeek
+  - 产品: DeepSeek API
+  - 来源: DeepSeek API Change Log / Global
+  - 类型: Model
+  - 发布时间: 2026-07-31 08:00
+  - 标签: API, Coding, Model Release
+  - 评分: 一手 85 / 热度 77 / 综合 77
+  - 摘要: The official release of the DeepSeek-V4-Flash API is now in public beta.
 - [DeepSeek-V4 ​](https://api-docs.deepseek.com/updates/)
   - 公司: DeepSeek
   - 产品: DeepSeek API
@@ -322,7 +190,7 @@
   - 类型: Model
   - 发布时间: 2026-04-24 08:00
   - 标签: API, Model Release
-  - 评分: 一手 85 / 热度 72 / 综合 77
+  - 评分: 一手 85 / 热度 72 / 综合 73
   - 摘要: The DeepSeek API now supports V4-Pro and V4-Flash, available via both the OpenAI ChatCompletions interface and the Anthropic interface.
 - [DeepSeek-V3.1-Terminus ​](https://api-docs.deepseek.com/updates/)
   - 公司: DeepSeek
@@ -340,7 +208,7 @@
   - 类型: Model
   - 发布时间: 2025-08-21 08:00
   - 标签: API, Model Release
-  - 评分: 一手 85 / 热度 62 / 综合 65
+  - 评分: 一手 85 / 热度 62 / 综合 68
   - 摘要: Both deepseek-chat and deepseek-reasoner have been upgraded to DeepSeek-V3.
 - [deepseek-reasoner ​](https://api-docs.deepseek.com/updates/)
   - 公司: DeepSeek
@@ -349,7 +217,7 @@
   - 类型: Feature
   - 发布时间: 2025-05-28 08:00
   - 标签: API, Model Release
-  - 评分: 一手 85 / 热度 62 / 综合 61
+  - 评分: 一手 85 / 热度 72 / 综合 67
   - 摘要: deepseek-reasoner Model Upgraded to DeepSeek-R1-0528: Enhanced Reasoning Capabilities Significant benchmark improvements (Pass@1) AIME 2025: 70.
 - [deepseek-chat ​](https://api-docs.deepseek.com/updates/)
   - 公司: DeepSeek
@@ -358,26 +226,323 @@
   - 类型: Feature
   - 发布时间: 2025-03-24 08:00
   - 标签: API, Model Release
-  - 评分: 一手 85 / 热度 62 / 综合 61
+  - 评分: 一手 85 / 热度 72 / 综合 67
   - 摘要: deepseek-chat Model Upgraded to DeepSeek-V3-0324: Enhanced Reasoning Capabilities Significant improvements in benchmark performance: MMLU-Pro: 75.
-- [deepseek-coder & deepseek-chat Upgraded to DeepSeek V2.5 Model ​](https://api-docs.deepseek.com/updates/)
-  - 公司: DeepSeek
-  - 产品: DeepSeek API
-  - 来源: DeepSeek API Change Log / Global
-  - 类型: Model
-  - 发布时间: 2024-09-05 08:00
-  - 标签: API, Coding, Model Release
-  - 评分: 一手 85 / 热度 77 / 综合 73
-  - 摘要: The DeepSeek V2 Chat and DeepSeek Coder V2 models have been merged and upgraded into the new model, DeepSeek V2.
-- [API Launches Context Caching on Disk Technology ​](https://api-docs.deepseek.com/updates/)
-  - 公司: DeepSeek
-  - 产品: DeepSeek API
-  - 来源: DeepSeek API Change Log / Global
+
+## Research Community
+
+- [FlashPrefill V2: Block-Sparse Prefill Attention for Long-Context LLM Serving](https://huggingface.co/papers/2608.19758)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 16:02
+  - 标签: Research, Model Release, Infrastructure
+  - 评分: 一手 86 / 热度 96.5 / 综合 90
+  - 摘要: FlashPrefill V2 improves long-context serving via mean-corrected sparse attention, optimized GPU operators, and framework integration, achieving large speedups over dense baselines.
+- [EnvHarness: Awakening Static Worlds for Agent Learning](https://huggingface.co/papers/2608.19880)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Agent
+  - 评分: 一手 86 / 热度 71 / 综合 82
+  - 摘要: EnvHarness and EnvRigger dynamically reshape static environments via programmable plugins to target agent weaknesses and improve reinforcement learning co-evolution.
+- [4DAnyone: Create Anyone in 4D from a Casual Monocular Video](https://huggingface.co/papers/2608.20335)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Multimodal, Model Release
+  - 评分: 一手 86 / 热度 97 / 综合 92
+  - 摘要: 4DAnyone reconstructs 4D humans from monocular video by generating multiview-consistent videos and lifting them into 4D Gaussian Splatting, using reference and target context designs to overcome scaling bottlenecks.
+- [SWE-bench Science: Can Coding Agents Resolve Engineering Tasks in Science?](https://huggingface.co/papers/2608.19799)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Agent, Coding, Search
+  - 评分: 一手 86 / 热度 100 / 综合 92
+  - 摘要: SWE-bench Science benchmarks coding agents on scientific software repair, revealing failure mechanisms and mixed effects of scientific guidance.
+- [WithEveryone: Unified Planning and Identity Grounding for Group Image Generation](https://huggingface.co/papers/2608.20336)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Multimodal, Model Release
+  - 评分: 一手 86 / 热度 100 / 综合 92
+  - 摘要: WithEveryone enables reliable identity-preserving group image generation for up to ten people by grounding identities to layout plans and using region-based identity losses.
+- [MemTrapBench: Benchmarking Cognitive Traps in LLM Memory Use](https://huggingface.co/papers/2608.20202)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Model Release
+  - 评分: 一手 86 / 热度 72 / 综合 85
+  - 摘要: Retrieved memories can induce reasoning errors and belief distortions in large language models, and an inference-time strategy helps avoid these cognitive traps while maintaining benchmark performance.
+- [Repo0: Design-Driven Zero-to-All Code Generation](https://huggingface.co/papers/2608.19854)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-20 08:00
+  - 标签: Research, Agent, Coding, Model Release
+  - 评分: 一手 86 / 热度 83 / 综合 82
+  - 摘要: Repo0 uses a dual-graph architectural state and modularity-guided structural evolution to generate complete software repositories from natural-language requirements with high functionality coverage.
+- [FACET: Preserving Source Intent and Executable State in Terminal Task Synthesis](https://huggingface.co/papers/2608.18580)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-19 08:00
+  - 标签: Research, Agent, Multimodal, Model Release
+  - 评分: 一手 86 / 热度 93 / 综合 86
+  - 摘要: FACET constructs executable terminal tasks by preserving source intent and grounding instructions, solutions, and verifiers in a shared repaired environment to enable scalable agent training.
+- [ForgeWM: Progressive Causal Training for Few-Step Action-Conditioned Video World Models](https://huggingface.co/papers/2608.14022)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-14 15:13
+  - 标签: Research, Multimodal, Model Release, API
+  - 评分: 一手 86 / 热度 92 / 综合 84
+  - 摘要: ForgeWM progressively distills bidirectional video generators into efficient few-step interactive world models with aligned discrete and continuous controls, supporting low-latency interaction and replay-time refinement.
+- [SkillEvo: Self-Renewing Evolution Gradients from Multi-Turn Interaction Feedback](https://huggingface.co/papers/2608.13120)
+  - 公司: Research Community
+  - 产品: AI Research
+  - 来源: Hugging Face Daily Papers / Global
+  - 类型: Paper
+  - 发布时间: 2026-08-13 08:00
+  - 标签: Research, Agent, Multimodal, API
+  - 评分: 一手 86 / 热度 81 / 综合 79
+  - 摘要: SkillEvo improves agent skills through multi-turn feedback and active governance to sustain evolution gradients.
+
+## Anthropic
+
+- [We've released v1.0 of the Python SDK .](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Deprecation
+  - 发布时间: 2026-08-20 00:00
+  - 标签: API, Agent, Coding, Model Release
+  - 评分: 一手 100 / 热度 83 / 综合 94
+  - 摘要: The SDK's HTTP layer moves from httpx to httpx2 , a maintained, API-compatible fork: build custom http_client , Timeout , and transport objects from httpx2 (the DefaultHttpxClient helpers are unchanged), and call httpx2.
+- [The computer use tool is out of beta on the Claude API as the computer_toolset_20260801 toolset: no beta header, batch a](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
   - 类型: Feature
-  - 发布时间: 2024-08-02 08:00
+  - 发布时间: 2026-08-19 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 78 / 综合 87
+  - 摘要: The computer use tool is out of beta on the Claude API as the computer_toolset_20260801 toolset: no beta header, batch actions (several actions in one turn), zoom enabled by default, and per-member configuration through configs.
+- [We've launched the browser use tool ( browser_toolset_20260801 ), a client toolset for driving a browser that your appli](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 00:00
+  - 标签: API, Agent, Coding
+  - 评分: 一手 100 / 热度 66 / 综合 82
+  - 摘要: We've launched the browser use tool ( browser_toolset_20260801 ), a client toolset for driving a browser that your application hosts.
+- [Both toolsets are available for Claude Fable 5, Claude Mythos 5, Claude Opus 5, Claude Sonnet 5, and Claude Opus 4.8 on ](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-08-19 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 78 / 综合 84
+  - 摘要: Both toolsets are available for Claude Fable 5, Claude Mythos 5, Claude Opus 5, Claude Sonnet 5, and Claude Opus 4.
+- [The Files API is out of beta on the Claude API.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 00:00
   - 标签: API
-  - 评分: 一手 85 / 热度 65 / 综合 66
-  - 摘要: The DeepSeek API has innovatively adopted hard disk caching, reducing prices by another order of magnitude.
+  - 评分: 一手 100 / 热度 55 / 综合 79
+  - 摘要: The Files API is out of beta on the Claude API.
+- [Agent Skills and the Skills API ( /v1/skills ) are out of beta on the Claude API.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 00:00
+  - 标签: API, Agent
+  - 评分: 一手 100 / 热度 71 / 综合 84
+  - 摘要: Agent Skills and the Skills API ( /v1/skills ) are out of beta on the Claude API.
+- [The Admin API user-management endpoints for Claude Enterprise (claude.ai) organizations (members, invites, groups, and c](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 00:00
+  - 标签: API, Enterprise
+  - 评分: 一手 100 / 热度 68.5 / 综合 87
+  - 摘要: The Admin API user-management endpoints for Claude Enterprise (claude.
+- [You can now restrict which sites a Claude Managed Agents agent's web_search and web_fetch tools can reach.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 00:00
+  - 标签: API, Agent, Coding, Search
+  - 评分: 一手 100 / 热度 90 / 综合 84
+  - 摘要: You can now restrict which sites a Claude Managed Agents agent's web_search and web_fetch tools can reach.
+- [Claude Managed Agents sessions that run in a self-hosted sandbox can now attach memory stores .](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 00:00
+  - 标签: API, Agent, Coding
+  - 评分: 一手 100 / 热度 66 / 综合 80
+  - 摘要: Claude Managed Agents sessions that run in a self-hosted sandbox can now attach memory stores.
+- [The session viewer in the Claude Console has been redesigned with a timeline minimap, a transcript grouped by model requ](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-08-19 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 78 / 综合 80
+  - 摘要: The session viewer in the Claude Console has been redesigned with a timeline minimap, a transcript grouped by model request, and an Inspector panel for session details and cost, raw events, per-tool statistics, mounted resources, and per-thread activity.
+- [Workbench is now Playground in the Claude Console.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-18 00:00
+  - 标签: API, Coding, Search
+  - 评分: 一手 100 / 热度 74 / 综合 90
+  - 摘要: Workbench is now Playground in the Claude Console.
+- [The Compliance API now returns transcripts of Cowork and Claude Code sessions that run on your users' machines, in beta ](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-11 00:00
+  - 标签: API, Coding, Enterprise
+  - 评分: 一手 100 / 热度 73.5 / 综合 86
+  - 摘要: The Compliance API now returns transcripts of Cowork and Claude Code sessions that run on your users' machines, in beta for Claude Enterprise organizations.
+- [We've added the anthropic-workspace-id response header to the Claude API.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-11 00:00
+  - 标签: API
+  - 评分: 一手 100 / 热度 55 / 综合 78
+  - 摘要: We've added the anthropic-workspace-id response header to the Claude API.
+- [You can now set a budget on a Claude Managed Agents session: a hard cap on the session's spend, priced at public list ra](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-08-07 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 88 / 综合 82
+  - 摘要: You can now set a budget on a Claude Managed Agents session: a hard cap on the session's spend, priced at public list rates.
+- [You can now give a Claude Managed Agents session an advisor: a model at least as capable as the agent's own that the ses](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-08-07 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 78 / 综合 76
+  - 摘要: You can now give a Claude Managed Agents session an advisor: a model at least as capable as the agent's own that the session's primary thread can consult mid-turn for strategic guidance.
+- [You can now control where model inference runs for a Claude Managed Agents agent.](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Model
+  - 发布时间: 2026-08-07 00:00
+  - 标签: API, Agent, Model Release
+  - 评分: 一手 100 / 热度 88 / 综合 82
+  - 摘要: You can now control where model inference runs for a Claude Managed Agents agent.
+- [Claude Managed Agents sessions can now load skills from a GitHub repository .](https://docs.anthropic.com/en/release-notes/api)
+  - 公司: Anthropic
+  - 产品: Claude API
+  - 来源: Anthropic API Release Notes / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-07 00:00
+  - 标签: API, Agent
+  - 评分: 一手 100 / 热度 61 / 综合 71
+  - 摘要: Claude Managed Agents sessions can now load skills from a GitHub repository.
+
+## MiniMax
+
+- [H3 video generation](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 08:00
+  - 标签: Agent, Multimodal, Model Release
+  - 评分: 一手 100 / 热度 68 / 综合 81
+  - 摘要: H3 video generation: The flagship H3 video model is now integrated.
+- [MCP Servers](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 08:00
+  - 标签: Agent
+  - 评分: 一手 100 / 热度 46 / 综合 71
+  - 摘要: MCP Servers: Added a dedicated configuration page for viewing, adding, and managing MCP Servers in one place.
+- [Text selection comments and preview](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 08:00
+  - 标签: Agent
+  - 评分: 一手 100 / 热度 46 / 综合 74
+  - 摘要: Text selection comments and preview: You can comment on selected text, and preview flows for markdown, SVG, LaTeX, and similar files are smoother.
+- [BYOK](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-19 08:00
+  - 标签: Agent, Model Release
+  - 评分: 一手 100 / 热度 73 / 综合 82
+  - 摘要: BYOK: Configure Model ID, context window, max output tokens, and reasoning level in custom model settings.
+- [Plugin Marketplace](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-12 08:00
+  - 标签: Agent, Search
+  - 评分: 一手 100 / 热度 60 / 综合 75
+  - 摘要: Plugin Marketplace: Added a built-in plugin marketplace with initial plugins for financial data, company lookup, legal search, knowledge workflows, and Office work.
+- [Red Skill Search](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-12 08:00
+  - 标签: Agent, Search
+  - 评分: 一手 100 / 热度 60 / 综合 71
+  - 摘要: Red Skill Search: Added Red Skill search.
+- [Conversation Navigation](https://agent.minimax.io/docs/changelog)
+  - 公司: MiniMax
+  - 产品: MiniMax Agent
+  - 来源: MiniMax Agent Changelog / Global
+  - 类型: Feature
+  - 发布时间: 2026-08-12 08:00
+  - 标签: Agent
+  - 评分: 一手 100 / 热度 46 / 综合 74
+  - 摘要: Conversation Navigation: Long conversations now support quick jumps to target turns.
 
 ## OpenAI
 
@@ -388,7 +553,7 @@
   - 类型: Feature
   - 发布时间: 2026-04-01 00:00
   - 标签: API
-  - 评分: 一手 100 / 热度 45 / 综合 63
+  - 评分: 一手 100 / 热度 45 / 综合 59
   - 摘要: Reasoning effort now defaults to medium.
 - [When image_detail is unset or set to auto , the model now uses original behavior](https://developers.openai.com/api/docs/changelog)
   - 公司: OpenAI
@@ -397,7 +562,7 @@
   - 类型: Feature
   - 发布时间: 2026-04-01 00:00
   - 标签: API, Multimodal, Model Release
-  - 评分: 一手 100 / 热度 67 / 综合 70
+  - 评分: 一手 100 / 热度 67 / 综合 66
   - 摘要: When image_detail is unset or set to auto , the model now uses original behavior.
 - [running agents in controlled sandboxes](https://developers.openai.com/api/docs/changelog)
   - 公司: OpenAI
@@ -406,7 +571,7 @@
   - 类型: Feature
   - 发布时间: 2026-04-01 00:00
   - 标签: API, Agent
-  - 评分: 一手 100 / 热度 61 / 综合 67
+  - 评分: 一手 100 / 热度 61 / 综合 63
   - 摘要: running agents in controlled sandboxes.
 - [Tool search in the Responses API, which lets models defer large tool surfaces until runtime to reduce token usage, prese](https://developers.openai.com/api/docs/changelog)
   - 公司: OpenAI
@@ -438,33 +603,6 @@
 
 ## ByteDance
 
-- [模型插件联网基础版、联网plus版、联网pro版下线公告](https://www.volcengine.com/docs/82379/1371844?lang=zh)
-  - 公司: ByteDance
-  - 产品: Doubao / Ark
-  - 来源: Volcengine Ark Product Announcements / China
-  - 类型: Platform
-  - 发布时间: 2026-01-16 15:30
-  - 标签: API
-  - 评分: 一手 85 / 热度 45 / 综合 54
-  - 摘要: Doubao / Ark official announcement: 模型插件联网基础版、联网plus版、联网pro版下线公告.
-- [高代码 SDK Arkitect 正式发布](https://www.volcengine.com/docs/82379/1434278?lang=zh)
-  - 公司: ByteDance
-  - 产品: Doubao / Ark Models
-  - 来源: Volcengine Ark Model Announcements / China
-  - 类型: Model
-  - 发布时间: 2026-01-16 15:30
-  - 标签: Model Release, Coding
-  - 评分: 一手 85 / 热度 62 / 综合 61
-  - 摘要: Doubao / Ark Models official announcement: 高代码 SDK Arkitect 正式发布.
-- [火山方舟 SDK V1/V2下线公告及迁移指引](https://www.volcengine.com/docs/82379/1355331?lang=zh)
-  - 公司: ByteDance
-  - 产品: Doubao / Ark Models
-  - 来源: Volcengine Ark Model Announcements / China
-  - 类型: Model
-  - 发布时间: 2026-01-16 15:30
-  - 标签: Model Release, Coding
-  - 评分: 一手 85 / 热度 62 / 综合 61
-  - 摘要: Doubao / Ark Models official announcement: 火山方舟 SDK V1/V2下线公告及迁移指引.
 - [模型下线公告](https://www.volcengine.com/docs/82379/1350667?lang=zh)
   - 公司: ByteDance
   - 产品: Doubao / Ark

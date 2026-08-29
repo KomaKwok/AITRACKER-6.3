@@ -2,6 +2,9 @@ import { SignalsTable } from "@/components/signals-table";
 import { getDictionary } from "@/lib/i18n";
 import { getAllSignals, filterSignals } from "@/lib/radar/repository";
 
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export default async function SignalsPage({
   searchParams
 }: {
@@ -26,7 +29,8 @@ export default async function SignalsPage({
     ],
     sourceType: [
       { value: "All", label: t.signalsPage.all },
-      { value: "Official", label: "Official" }
+      { value: "Official", label: "Official" },
+      { value: "Research", label: locale === "zh" ? "论文精选" : "Research" }
     ],
     tag: [
       { value: "All", label: t.signalsPage.all },
@@ -38,7 +42,8 @@ export default async function SignalsPage({
       { value: "Enterprise", label: "Enterprise" },
       { value: "Model Release", label: "Model Release" },
       { value: "API", label: "API" },
-      { value: "Infrastructure", label: "Infrastructure" }
+      { value: "Infrastructure", label: "Infrastructure" },
+      { value: "Research", label: locale === "zh" ? "论文" : "Research" }
     ],
     timeRange: [
       { value: "All", label: t.signalsPage.all },

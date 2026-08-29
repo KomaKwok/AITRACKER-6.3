@@ -4,6 +4,7 @@ import { deepSeekAdapter } from "@/lib/radar/sources/deepseek";
 import { doubaoModelAdapter, doubaoProductAdapter } from "@/lib/radar/sources/doubao";
 import { minimaxAdapter } from "@/lib/radar/sources/minimax";
 import { openAiAdapter } from "@/lib/radar/sources/openai";
+import { huggingFaceDailyPapersAdapter } from "@/lib/radar/sources/huggingface";
 
 const adapters: SourceAdapter[] = [
   openAiAdapter,
@@ -12,7 +13,8 @@ const adapters: SourceAdapter[] = [
   deepSeekAdapter,
   minimaxAdapter,
   doubaoProductAdapter,
-  doubaoModelAdapter
+  doubaoModelAdapter,
+  huggingFaceDailyPapersAdapter
 ];
 
 export const adapterRegistry = new Map(adapters.map((adapter) => [adapter.sourceId, adapter]));

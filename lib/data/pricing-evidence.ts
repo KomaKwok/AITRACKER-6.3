@@ -1,8 +1,25 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { PriceDateEvidence, PriceSnapshotEntry } from "@/lib/data/pricing-snapshot";
+import { pricingSnapshot } from "@/lib/data/pricing-snapshot";
 
 const evidenceFile = path.join(process.cwd(), "data", "pricing-evidence.json");
+const snapshotFile = path.join(process.cwd(), "data", "pricing-snapshot.json");
+
+interface StoredPricingSnapshot {
+  entries: PriceSnapshotEntry[];
+  refreshedAt: string;
+}
+
+export async function getPricingEntries() {
+  try {
+    const raw = await readFile(snapshotFile, "utf8");
+    const parsed = JSON.parse(raw) as StoredPricingSnapshot;
+    return parsed.entries?.length ? parsed.entries : pricingSnapshot;
+  } catch {
+    return pricingSnapshot;
+  }
+}
 
 export async function readPricingEvidence() {
   try {

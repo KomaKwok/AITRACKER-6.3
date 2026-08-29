@@ -85,5 +85,19 @@ export const defaultSources: Source[] = [
     fetchStrategy: "doubao-model-announcements",
     active: true,
     lastFetchedAt: null
+  },
+  {
+    id: "huggingface-daily-papers",
+    name: "Hugging Face Daily Papers",
+    company: "Hugging Face",
+    product: "Daily Papers",
+    url: "https://huggingface.co/papers",
+    feedUrls: ["https://huggingface.co/api/daily_papers?p=0&limit=100&sort=publishedAt"],
+    region: "Global",
+    sourceType: "Research",
+    priority: 9,
+    fetchStrategy: "huggingface-daily-papers",
+    active: true,
+    lastFetchedAt: null
   }
 ];

@@ -20,6 +20,10 @@ export interface PriceSnapshotEntry {
   sourceUrl: string;
   officialUpdatedAt: string | null;
   verifiedAt: string;
+  lastAttemptedAt?: string;
+  verificationStatus?: "verified" | "stale";
+  verificationMessage?: string;
+  priceChangedAt?: string;
   dateEvidence?: PriceDateEvidence;
 }
 
@@ -27,73 +31,85 @@ export const pricingSnapshot: PriceSnapshotEntry[] = [
   {
     company: "OpenAI",
     anchorLabel: "Flagship",
-    product: "GPT-5.5",
-    headlinePrice: "$5 / 1M input",
-    secondaryPrice: "$30 / 1M output",
+    product: "GPT-5.6 Sol",
+    headlinePrice: "$4 / 1M input",
+    secondaryPrice: "$20 / 1M output",
     basis: "API token",
     note: "Official pricing page does not expose a clear last-updated date in fetched page content.",
-    sourceUrl: "https://openai.com/api/pricing/",
+    sourceUrl: "https://developers.openai.com/api/docs/models",
     officialUpdatedAt: null,
-    verifiedAt: "2026-06-02T00:00:00.000Z"
+    verifiedAt: "2026-08-22T00:00:00.000Z",
+    verificationStatus: "verified",
+    verificationMessage: "Verified against the official flagship model catalog."
   },
   {
     company: "Anthropic",
     anchorLabel: "Flagship",
-    product: "Claude Opus 4.8",
+    product: "Claude Opus 5",
     headlinePrice: "$5 / MTok input",
     secondaryPrice: "$25 / MTok output",
     basis: "API token",
     note: "Official pricing page does not expose a clear last-updated date in fetched page content.",
     sourceUrl: "https://platform.claude.com/docs/en/about-claude/pricing",
     officialUpdatedAt: null,
-    verifiedAt: "2026-06-02T00:00:00.000Z"
+    verifiedAt: "2026-08-22T00:00:00.000Z",
+    verificationStatus: "verified",
+    verificationMessage: "Verified against the official model pricing table."
   },
   {
-    company: "Google",
+    company: "腾讯混元",
     anchorLabel: "Flagship",
-    product: "Gemini 3.5 Flash",
-    headlinePrice: "$1.50 / 1M input",
-    secondaryPrice: "$9 / 1M output",
+    product: "Hy3",
+    headlinePrice: "¥1 / 1M input",
+    secondaryPrice: "¥4 / 1M output",
     basis: "API token",
-    note: "Official Google pricing page states: Last updated 2026-06-02 UTC.",
-    sourceUrl: "https://ai.google.dev/gemini-api/docs/pricing",
-    officialUpdatedAt: "2026-06-02T00:00:00.000Z",
-    verifiedAt: "2026-06-02T00:00:00.000Z"
+    note: "Tencent TokenHub lists Hy3 as its current flagship text and reasoning model.",
+    sourceUrl: "https://cloud.tencent.com/document/product/1823/130055",
+    officialUpdatedAt: "2026-08-21T15:42:52+08:00",
+    verifiedAt: "2026-08-22T00:00:00.000Z",
+    verificationStatus: "verified",
+    verificationMessage: "Verified against Tencent TokenHub model pricing."
   },
   {
     company: "DeepSeek",
     anchorLabel: "Flagship",
     product: "DeepSeek-V4-Pro",
-    headlinePrice: "$0.435 / 1M input",
-    secondaryPrice: "$0.87 / 1M output",
+    headlinePrice: "¥3 / 1M input",
+    secondaryPrice: "¥6 / 1M output",
     basis: "API token",
     note: "Official pricing page does not expose a clear last-updated date in fetched page content.",
-    sourceUrl: "https://api-docs.deepseek.com/quick_start/pricing",
+    sourceUrl: "https://www.deepseek.com/platform/",
     officialUpdatedAt: null,
-    verifiedAt: "2026-06-02T00:00:00.000Z"
+    verifiedAt: "2026-08-22T00:00:00.000Z",
+    verificationStatus: "verified",
+    verificationMessage: "Verified against DeepSeek's official API pricing."
   },
   {
     company: "MiniMax",
     anchorLabel: "Flagship",
-    product: "MiniMax-M2.7-highspeed",
-    headlinePrice: "$0.6 / 1M input",
-    secondaryPrice: "$2.4 / 1M output",
+    product: "MiniMax-M3",
+    headlinePrice: "$0.3 / 1M input",
+    secondaryPrice: "$1.2 / 1M output",
     basis: "API token",
     note: "Official pricing page does not expose a clear last-updated date in fetched page content.",
-    sourceUrl: "https://platform.minimax.io/docs/guides/pricing-paygo",
+    sourceUrl: "https://platform.minimax.io/subscribe/token-plan?tab=api-enterprise",
     officialUpdatedAt: null,
-    verifiedAt: "2026-06-02T00:00:00.000Z"
+    verifiedAt: "2026-08-22T00:00:00.000Z",
+    verificationStatus: "verified",
+    verificationMessage: "Uses the current <=512K context promotional API rate."
   },
   {
     company: "豆包 / 方舟",
     anchorLabel: "Flagship",
-    product: "Agent Plan Max",
-    headlinePrice: "1000元 / 月",
-    secondaryPrice: "Large 500 / Medium 200",
-    basis: "Subscription",
-    note: "Official Volcengine page states: 最近更新时间：2026.05.28 15:27:23.",
-    sourceUrl: "https://www.volcengine.com/docs/82379/2366394?lang=zh",
-    officialUpdatedAt: "2026-05-28T15:27:23+08:00",
-    verifiedAt: "2026-06-02T00:00:00.000Z"
+    product: "Doubao-Seed-Evolving",
+    headlinePrice: "¥6 / 1M input",
+    secondaryPrice: "¥30 / 1M output",
+    basis: "API token",
+    note: "Current flagship Coding and Agent model rate shown by Volcano Engine.",
+    sourceUrl: "https://www.volcengine.com/product/yunque",
+    officialUpdatedAt: null,
+    verifiedAt: "2026-08-22T00:00:00.000Z",
+    verificationStatus: "verified",
+    verificationMessage: "Verified against the official Doubao product pricing page."
   }
 ];

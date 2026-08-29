@@ -53,6 +53,7 @@ export async function getDashboardData() {
     sources: store.sources,
     signals: store.signals,
     trendSummary: store.trendSummary,
+    brief: store.brief,
     lastUpdatedAt: store.lastUpdatedAt,
     metrics: {
       totalSources: store.sources.length,

@@ -2,6 +2,9 @@ import { SourceList } from "@/components/source-list";
 import { getDictionary } from "@/lib/i18n";
 import { getAllSources } from "@/lib/radar/repository";
 
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export default async function SourcesPage() {
   const { locale, t } = await getDictionary();
   const sources = await getAllSources();

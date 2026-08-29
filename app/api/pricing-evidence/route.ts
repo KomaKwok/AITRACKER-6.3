@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { updatePricingEvidence } from "@/lib/pricing/bocha-evidence";
+import { refreshPricingSnapshot } from "@/lib/pricing/refresh";
 
 export async function POST(request: NextRequest) {
   const token = request.headers.get("x-cron-token");
@@ -8,12 +8,13 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const evidence = await updatePricingEvidence();
+    const snapshot = await refreshPricingSnapshot();
 
     return NextResponse.json({
       ok: true,
-      message: "Pricing evidence updated.",
-      totalCompanies: Object.keys(evidence).length
+      message: "Flagship pricing refreshed from official pages.",
+      totalCompanies: snapshot.entries.length,
+      verifiedCompanies: snapshot.verifiedCount
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

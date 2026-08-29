@@ -1,6 +1,6 @@
 # AI Tracker
 
-一个面向研究和商业分析的 AI 官方动态追踪器。目标不是抓 AI 新闻，而是持续抓取官方产品更新页、changelog、release notes，并过滤掉活动、宣传、品牌文案。
+一个面向研究和商业分析的 AI 动态追踪器。除了持续抓取官方产品更新页、changelog 和 release notes，也会从研究社区挑选适合日常 AI 训练与数据策略上报的论文，并过滤掉活动、宣传和品牌文案。
 
 ## 当前覆盖
 
@@ -9,6 +9,8 @@
 - DeepSeek: `DeepSeek API Change Log`
 - MiniMax: `MiniMax Agent Changelog`
 - 豆包 / 火山方舟: `产品更新公告` + `模型发布公告`
+- AI 论文: `Hugging Face Daily Papers` 最近一期社区热度 Top 10
+- 旗舰价格: OpenAI、Anthropic、腾讯混元、DeepSeek、MiniMax、豆包各保留一个官方旗舰细分模型
 
 ## 这一版解决了什么
 
@@ -16,6 +18,8 @@
 - 数据源配置与抓取逻辑解耦，后续新增公司只需要增加 source + adapter
 - 过滤规则优先保留模型、API、平台、能力、定价、下线类更新
 - 可选接入 `OPENAI_API_KEY` 或 `DEEPSEEK_API_KEY` 做摘要与标签增强
+- 每次刷新并行核验六家官方价格页，解析失败时保留最近一次成功价格并显示失败状态
+- 根据近期真实信号生成首页 AI Brief；无 API Key 时使用本地事实摘要回退
 
 ## 项目结构
 
@@ -40,6 +44,12 @@ npm run dev
 
 ```bash
 npm run fetch
+```
+
+只刷新论文源：
+
+```bash
+npm run fetch -- --source=huggingface-daily-papers
 ```
 
 启动后访问 [http://localhost:3000](http://localhost:3000)。
@@ -70,6 +80,7 @@ CRON_SECRET=your-secret
 - `data/store.json`
 - `data/exports/latest-links.json`
 - `data/exports/latest-links-zh.md`
+- `data/pricing-snapshot.json`
 
 `latest-links-zh.md` 已经改成按公司聚合，方便继续喂给别的模型做深度分析。
 

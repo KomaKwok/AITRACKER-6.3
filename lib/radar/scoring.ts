@@ -11,7 +11,8 @@ const tagWeights: Partial<Record<Tag, number>> = {
   Enterprise: 7,
   "Model Release": 14,
   API: 10,
-  Infrastructure: 9
+  Infrastructure: 9,
+  Research: 10
 };
 
 const highMaterialityTerms = [
@@ -26,7 +27,10 @@ const highMaterialityTerms = [
   "billing",
   "tool calling",
   "embedding",
-  "api"
+  "api",
+  "training",
+  "benchmark",
+  "dataset"
 ];
 
 const mediumMaterialityTerms = [
@@ -39,7 +43,9 @@ const mediumMaterialityTerms = [
   "developer",
   "sdk",
   "platform",
-  "rollout"
+  "rollout",
+  "evaluation",
+  "architecture"
 ];
 
 const analyticalTerms = [
@@ -55,7 +61,11 @@ const analyticalTerms = [
   "context",
   "embedding",
   "deployment",
-  "security"
+  "security",
+  "training",
+  "dataset",
+  "benchmark",
+  "evaluation"
 ];
 
 function countMatches(haystack: string, terms: string[]) {
@@ -92,6 +102,8 @@ export function calculateFirstHandScore(input: {
 
   if (strategy.includes("release-notes") || strategy.includes("changelog")) {
     base = 96;
+  } else if (strategy.includes("daily-papers")) {
+    base = 82;
   } else if (strategy.includes("rss") || strategy.includes("atom") || strategy.includes("feed")) {
     base = 88;
   } else if (strategy.includes("help-center")) {

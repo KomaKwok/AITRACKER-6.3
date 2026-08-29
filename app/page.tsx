@@ -1,25 +1,75 @@
 import { EmptyState } from "@/components/empty-state";
+import { DashboardBriefCard } from "@/components/dashboard-brief";
 import { PriceBoard } from "@/components/price-board";
+import { PaperDigest } from "@/components/paper-digest";
 import { SectionHeader } from "@/components/section-header";
 import { SignalCard } from "@/components/signal-card";
-import { withPricingEvidence } from "@/lib/data/pricing-evidence";
-import { pricingSnapshot } from "@/lib/data/pricing-snapshot";
+import { getPricingEntries } from "@/lib/data/pricing-evidence";
 import { getDictionary } from "@/lib/i18n";
-import { getDashboardData, splitByRegion } from "@/lib/radar/repository";
+import { getDashboardData } from "@/lib/radar/repository";
+import { Signal } from "@/lib/types";
 import { formatDashboardTime, formatRelativeDate, hasReliableRecency, withinDays } from "@/lib/utils";
+
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
+function uniqueSignals(signals: Signal[]) {
+  return signals.filter((signal, index, list) => list.findIndex((candidate) => candidate.id === signal.id) === index);
+}
+
+function selectDiverseSignals(signals: Signal[], limit: number, maxPerSource = 1) {
+  const selected: Signal[] = [];
+  const sourceCounts = new Map<string, number>();
+
+  for (const signal of signals) {
+    const count = sourceCounts.get(signal.sourceId) ?? 0;
+    if (count >= maxPerSource) {
+      continue;
+    }
+
+    selected.push(signal);
+    sourceCounts.set(signal.sourceId, count + 1);
+
+    if (selected.length >= limit) {
+      return selected;
+    }
+  }
+
+  for (const signal of signals) {
+    if (selected.some((candidate) => candidate.id === signal.id)) {
+      continue;
+    }
+
+    selected.push(signal);
+    if (selected.length >= limit) {
+      return selected;
+    }
+  }
+
+  return selected;
+}
 
 export default async function DashboardPage() {
   const { locale, t } = await getDictionary();
   const data = await getDashboardData();
-  const priceEntries = await withPricingEvidence(pricingSnapshot);
-  const todaySignals = data.signals
+  const priceEntries = await getPricingEntries();
+  const productSignals = data.signals.filter((signal) => signal.category !== "Paper");
+  const paperSignals = data.signals
+    .filter((signal) => signal.category === "Paper")
+    .sort((a, b) => (a.sourceRank ?? 99) - (b.sourceRank ?? 99))
+    .slice(0, 10);
+  const todaySignals = productSignals
     .filter((signal) => hasReliableRecency(signal.sourceId) && withinDays(signal.publishedAt, 1))
     .slice(0, 4);
-  const weekSignals = data.signals
+  const weekSignals = productSignals
     .filter((signal) => hasReliableRecency(signal.sourceId) && withinDays(signal.publishedAt, 7))
     .slice(0, 6);
-  const topSignals = [...data.signals].sort((a, b) => b.signalScore - a.signalScore).slice(0, 4);
-  const regional = splitByRegion(data.signals);
+  const recentSignals = selectDiverseSignals(uniqueSignals([...todaySignals, ...weekSignals]), 6, 2);
+  const topSignals = selectDiverseSignals(
+    [...productSignals].sort((a, b) => b.signalScore - a.signalScore || +new Date(b.publishedAt) - +new Date(a.publishedAt)),
+    6,
+    1
+  );
 
   return (
     <div className="space-y-8">
@@ -49,16 +99,22 @@ export default async function DashboardPage() {
               </div>
             </div>
           </div>
+          <DashboardBriefCard brief={data.brief} locale={locale} />
           <PriceBoard entries={priceEntries} locale={locale} />
         </div>
+      </section>
+
+      <section>
+        <SectionHeader title={t.dashboard.paperTitle} description={t.dashboard.paperDescription} />
+        <PaperDigest papers={paperSignals} locale={locale} />
       </section>
 
       <section className="grid gap-8 xl:grid-cols-[1fr_1fr]">
         <div>
           <SectionHeader title={t.dashboard.todayWeekTitle} description={t.dashboard.todayWeekDescription} />
           <div className="space-y-4">
-            {[...todaySignals, ...weekSignals].slice(0, 6).length ? (
-              [...todaySignals, ...weekSignals].slice(0, 6).map((signal) => (
+            {recentSignals.length ? (
+              recentSignals.map((signal) => (
                 <SignalCard key={signal.id} signal={signal} labels={t.common} locale={locale} />
               ))
             ) : (
@@ -134,22 +190,6 @@ export default async function DashboardPage() {
                 }
               />
             )}
-          </div>
-          <div className="panel p-6">
-            <SectionHeader title={t.dashboard.chinaVsGlobalTitle} description={t.dashboard.chinaVsGlobalDescription} />
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-2xl bg-sky-50 p-4">
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-700">{t.dashboard.global}</div>
-                <div className="mt-2 text-3xl font-semibold text-ink">{regional.global.length}</div>
-                <p className="mt-2 text-sm text-slate-600">{t.dashboard.globalDescription}</p>
-              </div>
-              <div className="rounded-2xl bg-amber-50 p-4">
-                <div className="text-sm font-semibold uppercase tracking-[0.2em] text-amber-700">{t.dashboard.china}</div>
-                <div className="mt-2 text-3xl font-semibold text-ink">{regional.china.length}</div>
-                <p className="mt-2 text-sm text-slate-600">{t.dashboard.chinaDescription}</p>
-              </div>
-            </div>
-            <p className="mt-4 text-sm leading-7 text-slate-600">{data.trendSummary.chinaVsGlobal}</p>
           </div>
         </div>
       </section>

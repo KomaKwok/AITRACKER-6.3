@@ -9,7 +9,8 @@ const keywordTags: Array<{ tag: Tag; terms: string[] }> = [
   { tag: "Enterprise", terms: ["enterprise", "workspace", "team", "governance"] },
   { tag: "Model Release", terms: ["model", "release", "weights", "checkpoint"] },
   { tag: "API", terms: ["api", "endpoint", "platform", "inference"] },
-  { tag: "Infrastructure", terms: ["infrastructure", "deployment", "runtime", "latency"] }
+  { tag: "Infrastructure", terms: ["infrastructure", "deployment", "runtime", "latency"] },
+  { tag: "Research", terms: ["paper", "study", "benchmark", "dataset", "training", "evaluation"] }
 ];
 
 export function summarizeSnippet(title: string, snippet: string) {
