@@ -4,7 +4,7 @@ export function SectionHeader({
   action
 }: {
   title: string;
-  description: string;
+  description?: string;
   action?: React.ReactNode;
 }) {
   return (
@@ -12,7 +12,7 @@ export function SectionHeader({
       <div>
         <div className="eyebrow">{title}</div>
         <h2 className="mt-2 text-2xl font-semibold tracking-tight text-ink">{title}</h2>
-        <p className="mt-1 text-sm text-slate-600">{description}</p>
+        {description ? <p className="mt-1 text-sm text-slate-600">{description}</p> : null}
       </div>
       {action}
     </div>

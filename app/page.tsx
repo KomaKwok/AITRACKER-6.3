@@ -59,7 +59,7 @@ export default async function DashboardPage() {
 
       <section className="grid gap-8 xl:grid-cols-[1fr_1fr]">
         <div>
-          <SectionHeader title={t.dashboard.todayWeekTitle} description={t.dashboard.todayWeekDescription} />
+          <SectionHeader title={t.dashboard.todayWeekTitle} />
           <div className="space-y-4">
             {recentSignals.length ? (
               recentSignals.map((signal) => (
@@ -79,7 +79,7 @@ export default async function DashboardPage() {
         </div>
         <div className="space-y-8">
           <div>
-            <SectionHeader title={t.dashboard.radarTitle} description={t.dashboard.radarDescription} />
+            <SectionHeader title={t.dashboard.radarTitle} />
             <div className="space-y-4">
               {radarSignals.length ? (
                 radarSignals.map((signal) => <SignalCard key={signal.id} signal={signal} labels={t.common} locale={locale} />)
