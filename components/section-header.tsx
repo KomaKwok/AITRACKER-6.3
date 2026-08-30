@@ -10,8 +10,7 @@ export function SectionHeader({
   return (
     <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <div className="eyebrow">{title}</div>
-        <h2 className="mt-2 text-2xl font-semibold tracking-tight text-ink">{title}</h2>
+        <h2 className="text-2xl font-semibold tracking-tight text-ink">{title}</h2>
         {description ? <p className="mt-1 text-sm text-slate-600">{description}</p> : null}
       </div>
       {action}
