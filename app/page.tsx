@@ -6,70 +6,18 @@ import { SectionHeader } from "@/components/section-header";
 import { SignalCard } from "@/components/signal-card";
 import { getPricingEntries } from "@/lib/data/pricing-evidence";
 import { getDictionary } from "@/lib/i18n";
+import { selectDashboardSections } from "@/lib/radar/dashboard";
 import { getDashboardData } from "@/lib/radar/repository";
-import { Signal } from "@/lib/types";
-import { formatDashboardTime, formatRelativeDate, hasReliableRecency, withinDays } from "@/lib/utils";
+import { formatDashboardTime, formatRelativeDate } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-
-function uniqueSignals(signals: Signal[]) {
-  return signals.filter((signal, index, list) => list.findIndex((candidate) => candidate.id === signal.id) === index);
-}
-
-function selectDiverseSignals(signals: Signal[], limit: number, maxPerSource = 1) {
-  const selected: Signal[] = [];
-  const sourceCounts = new Map<string, number>();
-
-  for (const signal of signals) {
-    const count = sourceCounts.get(signal.sourceId) ?? 0;
-    if (count >= maxPerSource) {
-      continue;
-    }
-
-    selected.push(signal);
-    sourceCounts.set(signal.sourceId, count + 1);
-
-    if (selected.length >= limit) {
-      return selected;
-    }
-  }
-
-  for (const signal of signals) {
-    if (selected.some((candidate) => candidate.id === signal.id)) {
-      continue;
-    }
-
-    selected.push(signal);
-    if (selected.length >= limit) {
-      return selected;
-    }
-  }
-
-  return selected;
-}
 
 export default async function DashboardPage() {
   const { locale, t } = await getDictionary();
   const data = await getDashboardData();
   const priceEntries = await getPricingEntries();
-  const productSignals = data.signals.filter((signal) => signal.category !== "Paper");
-  const paperSignals = data.signals
-    .filter((signal) => signal.category === "Paper")
-    .sort((a, b) => (a.sourceRank ?? 99) - (b.sourceRank ?? 99))
-    .slice(0, 10);
-  const todaySignals = productSignals
-    .filter((signal) => hasReliableRecency(signal.sourceId) && withinDays(signal.publishedAt, 1))
-    .slice(0, 4);
-  const weekSignals = productSignals
-    .filter((signal) => hasReliableRecency(signal.sourceId) && withinDays(signal.publishedAt, 7))
-    .slice(0, 6);
-  const recentSignals = selectDiverseSignals(uniqueSignals([...todaySignals, ...weekSignals]), 6, 2);
-  const topSignals = selectDiverseSignals(
-    [...productSignals].sort((a, b) => b.signalScore - a.signalScore || +new Date(b.publishedAt) - +new Date(a.publishedAt)),
-    6,
-    1
-  );
+  const { recentSignals, radarSignals, paperSignals } = selectDashboardSections(data.signals);
 
   return (
     <div className="space-y-8">
@@ -87,7 +35,7 @@ export default async function DashboardPage() {
                   <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.dashboard.lastUpdated}</div>
                   <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
                     <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                    Live
+                    {locale === "zh" ? "最新快照" : "Latest snapshot"}
                   </span>
                 </div>
                 <div className="mt-2 flex items-end justify-between gap-4">
@@ -119,11 +67,11 @@ export default async function DashboardPage() {
               ))
             ) : (
               <EmptyState
-                title={locale === "zh" ? "暂无今日或本周信号" : "No signals for today or this week"}
+                title={locale === "zh" ? "暂无近期动态" : "No recent updates"}
                 description={
                   locale === "zh"
-                    ? "当前还没有抓到最近 7 天内的可信信号。你可以手动刷新，或继续补充更多官方源适配器。"
-                    : "There are no verified signals from the last 7 days yet. You can refresh manually or add more official source adapters."
+                    ? "当前还没有可用于回补的可信信号。刷新不会再清空上一轮成功抓到的内容。"
+                    : "There are no retained verified signals yet. Refreshing no longer clears the last successful results."
                 }
               />
             )}
@@ -133,8 +81,8 @@ export default async function DashboardPage() {
           <div>
             <SectionHeader title={t.dashboard.radarTitle} description={t.dashboard.radarDescription} />
             <div className="space-y-4">
-              {topSignals.length ? (
-                topSignals.map((signal) => <SignalCard key={signal.id} signal={signal} labels={t.common} locale={locale} />)
+              {radarSignals.length ? (
+                radarSignals.map((signal) => <SignalCard key={signal.id} signal={signal} labels={t.common} locale={locale} />)
               ) : (
                 <EmptyState
                   title={locale === "zh" ? "暂无一手雷达信号" : "No first-hand radar signals yet"}
@@ -146,50 +94,6 @@ export default async function DashboardPage() {
                 />
               )}
             </div>
-          </div>
-          <div className="panel p-6">
-            <SectionHeader title={t.dashboard.trendTitle} description={t.dashboard.trendDescription} />
-            {data.trendSummary.last7d.length || data.trendSummary.last30d.length ? (
-              <div className="grid gap-6 md:grid-cols-2">
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">{t.dashboard.last7d}</h3>
-                  <div className="mt-4 space-y-4">
-                    {data.trendSummary.last7d.map((trend) => (
-                      <div key={trend.label} className="rounded-2xl bg-slate-50 p-4">
-                        <div className="flex items-center justify-between">
-                          <div className="font-semibold text-ink">{trend.label}</div>
-                          <div className="text-sm text-slate-500">{trend.count} signals</div>
-                        </div>
-                        <p className="mt-2 text-sm text-slate-600">{trend.summary}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">{t.dashboard.last30d}</h3>
-                  <div className="mt-4 space-y-4">
-                    {data.trendSummary.last30d.map((trend) => (
-                      <div key={trend.label} className="rounded-2xl bg-slate-50 p-4">
-                        <div className="flex items-center justify-between">
-                          <div className="font-semibold text-ink">{trend.label}</div>
-                          <div className="text-sm text-slate-500">{trend.count} signals</div>
-                        </div>
-                        <p className="mt-2 text-sm text-slate-600">{trend.summary}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <EmptyState
-                title={locale === "zh" ? "暂无趋势可总结" : "No trends to summarize yet"}
-                description={
-                  locale === "zh"
-                    ? "趋势总结依赖最近抓到的可信信号。当前数据不足，所以这里保持为空。"
-                    : "Trend summaries depend on recently fetched verified signals. There is not enough live data yet, so this section stays empty."
-                }
-              />
-            )}
           </div>
         </div>
       </section>

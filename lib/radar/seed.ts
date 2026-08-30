@@ -1,6 +1,5 @@
 import crypto from "node:crypto";
 import { defaultSources } from "@/lib/data/default-sources";
-import { generateTrendSummary } from "@/lib/radar/trends";
 import { RadarStore, Signal } from "@/lib/types";
 
 function hash(value: string) {
@@ -23,7 +22,6 @@ export function buildSeedStore(): RadarStore {
   return {
     sources: defaultSources,
     signals,
-    trendSummary: generateTrendSummary(signals),
     lastUpdatedAt: new Date().toISOString()
   };
 }

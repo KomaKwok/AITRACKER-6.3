@@ -16,8 +16,8 @@ export function PaperDigest({
         title={locale === "zh" ? "还没有抓到论文" : "No papers fetched yet"}
         description={
           locale === "zh"
-            ? "点击手动刷新后，这里会展示最近一期 Hugging Face Daily Papers 中热度最高的 10 篇。"
-            : "Run a manual refresh to load the top 10 papers from the latest Hugging Face Daily Papers batch."
+            ? "点击手动刷新后，这里会合并 Hugging Face 热门论文与 arXiv 最新 AI 论文。"
+            : "Run a manual refresh to combine trending Hugging Face papers with recent arXiv AI papers."
         }
       />
     );
@@ -33,12 +33,18 @@ export function PaperDigest({
           <article key={paper.id} className="panel group p-5">
             <div className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-violet-100 text-sm font-bold text-violet-700">
-                {String(paper.sourceRank ?? index + 1).padStart(2, "0")}
+                {String(index + 1).padStart(2, "0")}
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-violet-700">
                   <BookOpen className="h-3.5 w-3.5" />
-                  {locale === "zh" ? "每日论文精选" : "Daily paper pick"}
+                  {paper.sourceId === "arxiv-ai-papers"
+                    ? locale === "zh"
+                      ? "arXiv 最新 / 重点"
+                      : "arXiv recent / featured"
+                    : locale === "zh"
+                      ? "Hugging Face 热门"
+                      : "Hugging Face trending"}
                 </div>
                 <div className="mt-2 flex items-start justify-between gap-3">
                   <h3 className="text-base font-semibold leading-6 tracking-tight text-ink">{displayTitle}</h3>
@@ -60,6 +66,7 @@ export function PaperDigest({
                     </span>
                   ))}
                   <span className="text-xs text-slate-500">{formatRelativeDate(paper.publishedAt, locale)}</span>
+                  <span className="text-xs text-slate-400">{paper.sourceName}</span>
                 </div>
               </div>
             </div>

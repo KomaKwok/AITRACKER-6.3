@@ -17,8 +17,8 @@ const config: Config = {
         gold: "#c28d1b"
       },
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "ui-sans-serif", "system-ui"],
-        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"]
+        sans: ["Segoe UI", "PingFang SC", "Microsoft YaHei", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["Cascadia Code", "SFMono-Regular", "Consolas", "ui-monospace", "monospace"]
       },
       boxShadow: {
         soft: "0 20px 60px rgba(11, 16, 32, 0.08)"

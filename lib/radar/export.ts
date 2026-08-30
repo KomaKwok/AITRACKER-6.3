@@ -2,9 +2,10 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { format } from "date-fns";
 import { zhCN } from "date-fns/locale";
+import { getDataDirectory } from "@/lib/data/persisted-json";
 import { RadarStore, Signal } from "@/lib/types";
 
-const exportDir = path.join(process.cwd(), "data", "exports");
+const exportDir = path.join(getDataDirectory(), "exports");
 const markdownFile = path.join(exportDir, "latest-links-zh.md");
 const jsonFile = path.join(exportDir, "latest-links.json");
 

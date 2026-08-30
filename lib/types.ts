@@ -4,12 +4,14 @@ export type SourceType = "Official" | "Research";
 
 export type FetchStrategy =
   | "openai-api-changelog"
+  | "openai-frontier-watch"
   | "anthropic-api-release-notes"
   | "anthropic-claude-release-notes"
   | "deepseek-api-updates"
   | "minimax-agent-changelog"
   | "doubao-product-announcements"
   | "doubao-model-announcements"
+  | "arxiv-ai-papers"
   | "huggingface-daily-papers";
 
 export type SignalCategory = "Feature" | "Model" | "Platform" | "Deprecation" | "Pricing" | "Paper";
@@ -31,6 +33,7 @@ export interface Signal {
   title: string;
   titleZh?: string;
   url: string;
+  externalId?: string;
   sourceId: string;
   sourceName: string;
   sourceType: SourceType;
@@ -48,6 +51,7 @@ export interface Signal {
   rawContentSnippet: string;
   dedupeHash: string;
   sourceRank?: number;
+  status?: "released" | "developing";
 }
 
 export interface Source {
@@ -63,24 +67,12 @@ export interface Source {
   sourceType: SourceType;
   priority: number;
   fetchStrategy: FetchStrategy;
+  minRefreshIntervalHours?: number;
   active: boolean;
   lastFetchedAt: string | null;
   lastSuccessfulAt?: string | null;
   lastFetchStatus?: "success" | "empty" | "error";
   lastFetchMessage?: string | null;
-}
-
-export interface TrendPoint {
-  label: string;
-  summary: string;
-  count: number;
-}
-
-export interface TrendSummary {
-  generatedAt: string;
-  last7d: TrendPoint[];
-  last30d: TrendPoint[];
-  chinaVsGlobal: string;
 }
 
 export interface DashboardBrief {
@@ -97,7 +89,6 @@ export interface DashboardBrief {
 export interface RadarStore {
   sources: Source[];
   signals: Signal[];
-  trendSummary: TrendSummary;
   brief?: DashboardBrief;
   lastUpdatedAt: string | null;
 }

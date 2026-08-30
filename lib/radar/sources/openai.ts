@@ -44,3 +44,42 @@ export const openAiAdapter: SourceAdapter = {
     return items.slice(0, 16);
   }
 };
+
+export const openAiFrontierWatchAdapter: SourceAdapter = {
+  sourceId: "openai-frontier-watch",
+  async fetch(source) {
+    const { url, text: html } = await fetchFirstAvailableText([source.url, ...(source.fallbackUrls ?? [])]);
+    const rssItem = [...html.matchAll(/<item>([\s\S]*?)<\/item>/gi)]
+      .map((match) => match[1] ?? "")
+      .find((item) => /Astra/i.test(item));
+    const evidenceBlock = rssItem ?? html;
+    const text = stripHtml(evidenceBlock.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1"));
+    const hasVerifiedUpcomingModel =
+      /Astra/i.test(text) &&
+      (/upcoming models?|frontier models?|Astra models?|critical cyber/i.test(text) ||
+        /responding-next-frontier-critical-cyber-capabilities/i.test(evidenceBlock));
+
+    if (!hasVerifiedUpcomingModel) {
+      return [];
+    }
+
+    const rssDate = evidenceBlock.match(/<pubDate>([\s\S]*?)<\/pubDate>/i)?.[1];
+    const rssLink = evidenceBlock.match(/<link>([\s\S]*?)<\/link>/i)?.[1]?.replace(/<!\[CDATA\[|\]\]>/g, "").trim();
+    const publishedAt = parseDateGuess(rssDate ?? text.match(/August\s+(?:7|18),\s+2026/i)?.[0] ?? text);
+    return [
+      {
+        title: "OpenAI confirms Astra is an upcoming model while expanding safety testing",
+        titleZh: "OpenAI 确认 Astra 正在开发",
+        url: rssLink || (url.endsWith(".xml") ? source.url : url),
+        company: source.company,
+        product: source.product,
+        publishedAt,
+        snippet:
+          "OpenAI says internal evaluations show a major step forward in agentic coding and cybersecurity. Astra is an upcoming model, but its release timing and any ChatGPT rollout remain unconfirmed while safeguards are expanded.",
+        category: "Model",
+        tags: ["Model Release", "Agent", "Coding"],
+        status: "developing"
+      }
+    ];
+  }
+};

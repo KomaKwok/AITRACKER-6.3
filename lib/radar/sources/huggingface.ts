@@ -79,6 +79,7 @@ export const huggingFaceDailyPapersAdapter = {
         return {
           title: paper.title,
           url: `https://huggingface.co/papers/${paper.id}`,
+          externalId: `arxiv:${paper.id.replace(/v\d+$/i, "")}`,
           company: "Research Community",
           product: "AI Research",
           publishedAt: parseDateGuess(paper.publishedAt ?? paper.dailyDate),

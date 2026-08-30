@@ -1,9 +1,6 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
-import { fetchText, stripHtml, tryParseDateGuess } from "@/lib/radar/adapter-utils";
+import { fetchFirstAvailableText, fetchText, stripHtml, tryParseDateGuess } from "@/lib/radar/adapter-utils";
 import { PriceSnapshotEntry, pricingSnapshot } from "@/lib/data/pricing-snapshot";
-
-const snapshotFile = path.join(process.cwd(), "data", "pricing-snapshot.json");
+import { readPersistedJson, writePersistedJson } from "@/lib/data/persisted-json";
 
 interface ParsedPrice {
   product: string;
@@ -16,6 +13,7 @@ interface ParsedPrice {
 interface PricingDefinition {
   company: string;
   sourceUrl: string;
+  load?: () => Promise<string>;
   parse: (html: string) => ParsedPrice | null;
 }
 
@@ -190,6 +188,18 @@ function parseMiniMax(html: string): ParsedPrice | null {
 }
 
 function parseDoubao(html: string): ParsedPrice | null {
+  const bundleMatch = html.match(
+    /text:["'](Doubao-Seed-Evolving)["'][\s\S]{0,520}?text:["']([\d.]+)["'],unit:["']元(?:起)?\/百万输入tokens["'][\s\S]{0,180}?text:["']([\d.]+)["'],unit:["']元(?:起)?\/百万输出tokens["']/i
+  );
+  if (bundleMatch) {
+    return {
+      product: bundleMatch[1],
+      headlinePrice: `¥${bundleMatch[2]} / 1M input`,
+      secondaryPrice: `¥${bundleMatch[3]} / 1M output`,
+      note: "Official Volcano Engine Ark pay-as-you-go rate for the current Doubao flagship model."
+    };
+  }
+
   const text = normalizedText(html);
   const candidates = [...text.matchAll(/(Doubao-Seed-(?:Evolving|\d+(?:\.\d+)*-pro))\b/gi)].sort((a, b) => {
     const aEvolving = /Evolving/i.test(a[1]) ? 1 : 0;
@@ -212,6 +222,23 @@ function parseDoubao(html: string): ParsedPrice | null {
   }
 
   return null;
+}
+
+async function loadDoubaoPricingBundle() {
+  const productPageUrl = "https://www.volcengine.com/product/ark";
+  const productPage = await fetchText(productPageUrl);
+  const moduleDefinition = productPage.match(/"name":"product\/ark"[\s\S]{0,900}/)?.[0];
+  const bundlePaths = moduleDefinition
+    ? [...moduleDefinition.matchAll(/"source_url(?:_backup)?":"(\/\/[^"?]+\/bundles\/js\/main\.js)"/g)].map(
+        (match) => `https:${match[1]}`
+      )
+    : [];
+
+  if (!bundlePaths.length) {
+    throw new Error("Volcano Engine Ark page loaded, but its pricing bundle URL was not found.");
+  }
+
+  return (await fetchFirstAvailableText(bundlePaths)).text;
 }
 
 const definitions: PricingDefinition[] = [
@@ -237,24 +264,24 @@ const definitions: PricingDefinition[] = [
   },
   {
     company: "MiniMax",
-    sourceUrl: "https://platform.minimax.io/subscribe/token-plan?tab=api-enterprise",
+    sourceUrl: "https://platform.minimax.io/docs/guides/pricing-paygo",
     parse: parseMiniMax
   },
   {
     company: "豆包 / 方舟",
-    sourceUrl: "https://www.volcengine.com/product/yunque",
+    sourceUrl: "https://www.volcengine.com/product/ark",
+    load: loadDoubaoPricingBundle,
     parse: parseDoubao
   }
 ];
 
 async function readPreviousEntries() {
-  try {
-    const raw = await readFile(snapshotFile, "utf8");
-    const parsed = JSON.parse(raw) as { entries?: PriceSnapshotEntry[] };
-    return parsed.entries?.length ? parsed.entries : pricingSnapshot;
-  } catch {
-    return pricingSnapshot;
-  }
+  const parsed = await readPersistedJson<{ entries?: PriceSnapshotEntry[] }>({
+    filename: "pricing-snapshot.json",
+    blobPathname: "ai-radar/pricing-snapshot.json",
+    fallback: { entries: pricingSnapshot }
+  });
+  return parsed.entries?.length ? parsed.entries : pricingSnapshot;
 }
 
 function hasPriceChanged(previous: PriceSnapshotEntry, next: ParsedPrice) {
@@ -275,7 +302,7 @@ export async function refreshPricingSnapshot() {
       const previous = previousMap.get(definition.company) ?? pricingSnapshot.find((entry) => entry.company === definition.company)!;
 
       try {
-        const html = await fetchText(definition.sourceUrl);
+        const html = definition.load ? await definition.load() : await fetchText(definition.sourceUrl);
         const parsed = definition.parse(html);
         if (!parsed) {
           throw new Error("Official page loaded, but the flagship price row could not be parsed.");
@@ -303,8 +330,11 @@ export async function refreshPricingSnapshot() {
     })
   );
 
-  await mkdir(path.dirname(snapshotFile), { recursive: true });
-  await writeFile(snapshotFile, JSON.stringify({ refreshedAt: now, entries }, null, 2), "utf8");
+  await writePersistedJson({
+    filename: "pricing-snapshot.json",
+    blobPathname: "ai-radar/pricing-snapshot.json",
+    value: { refreshedAt: now, entries }
+  });
 
   return {
     refreshedAt: now,

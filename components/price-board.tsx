@@ -35,8 +35,6 @@ export function PriceBoard({ entries, locale }: { entries: PriceSnapshotEntry[];
           description: "每家公司只保留一个当前旗舰细分模型；不跨人民币与美元做误导性的高低排名。",
           checked: "本轮检查",
           coverage: "成功核验",
-          strategy: "抓取策略",
-          strategyValue: "官方页直抓 · 失败保留上次",
           input: "标准输入价",
           output: "标准输出价",
           verified: "本轮已核验",
@@ -52,8 +50,6 @@ export function PriceBoard({ entries, locale }: { entries: PriceSnapshotEntry[];
           description: "One current flagship variant per provider; USD and CNY prices are not ranked against each other.",
           checked: "Current check",
           coverage: "Verified",
-          strategy: "Fetch strategy",
-          strategyValue: "Official pages · keep last good value on failure",
           input: "Standard input",
           output: "Standard output",
           verified: "Verified this round",
@@ -72,7 +68,7 @@ export function PriceBoard({ entries, locale }: { entries: PriceSnapshotEntry[];
           <h3 className="mt-2 text-2xl font-semibold tracking-tight text-ink">{copy.title}</h3>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">{copy.description}</p>
         </div>
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           <div className="rounded-2xl bg-white px-4 py-3 shadow-sm">
             <div className="text-xs text-slate-500">{copy.checked}</div>
             <div className="mt-1 text-sm font-semibold text-ink">{formatDateTime(latestAttempt, locale)}</div>
@@ -80,10 +76,6 @@ export function PriceBoard({ entries, locale }: { entries: PriceSnapshotEntry[];
           <div className="rounded-2xl bg-white px-4 py-3 shadow-sm">
             <div className="text-xs text-slate-500">{copy.coverage}</div>
             <div className="mt-1 text-sm font-semibold text-ink">{verifiedCount} / {entries.length}</div>
-          </div>
-          <div className="rounded-2xl bg-white px-4 py-3 shadow-sm">
-            <div className="text-xs text-slate-500">{copy.strategy}</div>
-            <div className="mt-1 text-sm font-semibold text-ink">{copy.strategyValue}</div>
           </div>
         </div>
       </div>

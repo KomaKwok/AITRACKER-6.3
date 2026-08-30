@@ -2,6 +2,20 @@ import { Source } from "@/lib/types";
 
 export const defaultSources: Source[] = [
   {
+    id: "openai-frontier-watch",
+    name: "OpenAI Frontier Model Watch",
+    company: "OpenAI",
+    product: "Astra / ChatGPT watch",
+    url: "https://openai.com/index/responding-next-frontier-critical-cyber-capabilities/",
+    fallbackUrls: ["https://openai.com/news/rss.xml"],
+    region: "Global",
+    sourceType: "Official",
+    priority: 10,
+    fetchStrategy: "openai-frontier-watch",
+    active: true,
+    lastFetchedAt: null
+  },
+  {
     id: "claude-api-release-notes",
     name: "Anthropic API Release Notes",
     company: "Anthropic",
@@ -83,6 +97,24 @@ export const defaultSources: Source[] = [
     sourceType: "Official",
     priority: 10,
     fetchStrategy: "doubao-model-announcements",
+    active: true,
+    lastFetchedAt: null
+  },
+  {
+    id: "arxiv-ai-papers",
+    name: "arXiv Recent AI Papers",
+    company: "arXiv",
+    product: "Recent AI Papers",
+    url: "https://arxiv.org/list/cs.AI/recent",
+    feedUrls: [
+      "https://export.arxiv.org/api/query?search_query=cat%3Acs.AI%20OR%20cat%3Acs.LG%20OR%20cat%3Acs.CL&start=0&max_results=30&sortBy=submittedDate&sortOrder=descending",
+      "https://export.arxiv.org/api/query?id_list=2608.25756"
+    ],
+    region: "Global",
+    sourceType: "Research",
+    priority: 9,
+    fetchStrategy: "arxiv-ai-papers",
+    minRefreshIntervalHours: 24,
     active: true,
     lastFetchedAt: null
   },

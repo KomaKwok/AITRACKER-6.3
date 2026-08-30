@@ -10,6 +10,7 @@
 - MiniMax: `MiniMax Agent Changelog`
 - 豆包 / 火山方舟: `产品更新公告` + `模型发布公告`
 - AI 论文: `Hugging Face Daily Papers` 最近一期社区热度 Top 10
+- arXiv: `cs.AI`、`cs.LG`、`cs.CL` 最新论文，并支持重点论文 ID 补充
 - 旗舰价格: OpenAI、Anthropic、腾讯混元、DeepSeek、MiniMax、豆包各保留一个官方旗舰细分模型
 
 ## 这一版解决了什么
@@ -18,7 +19,9 @@
 - 数据源配置与抓取逻辑解耦，后续新增公司只需要增加 source + adapter
 - 过滤规则优先保留模型、API、平台、能力、定价、下线类更新
 - 可选接入 `OPENAI_API_KEY` 或 `DEEPSEEK_API_KEY` 做摘要与标签增强
+- arXiv 使用官方 Atom API，每 24 小时最多自动刷新一次，并与 Hugging Face 结果按论文 ID / 标题去重
 - 每次刷新并行核验六家官方价格页，解析失败时保留最近一次成功价格并显示失败状态
+- MiniMax 改抓官方静态计价文档；豆包会从火山方舟产品页自动发现当前前端价格包，避免动态页面导致长期解析失败
 - 根据近期真实信号生成首页 AI Brief；无 API Key 时使用本地事实摘要回退
 
 ## 项目结构
@@ -82,7 +85,25 @@ CRON_SECRET=your-secret
 - `data/exports/latest-links-zh.md`
 - `data/pricing-snapshot.json`
 
+## 刷新数据持久化
+
+网站现在会优先从持久存储读取并写入最近一次刷新结果，避免实例休眠或重启后回到部署包内的初始 JSON：
+
+- Vercel：在项目 Storage 中连接一个 Private Blob，并提供 `BLOB_READ_WRITE_TOKEN`
+- 其他支持持久磁盘的主机：把 `RADAR_DATA_DIR` 指向已挂载的持久目录
+- 本地开发：两项都不配置时继续使用项目内 `data/` 目录
+
+刷新保留每个产品源近 180 天的有限历史；本轮为空或失败时不会再删除上一次成功结果。首页“重点雷达”优先使用 30 天内信号，不足时最多回补至 90 天。
+
 `latest-links-zh.md` 已经改成按公司聚合，方便继续喂给别的模型做深度分析。
+
+### Render 部署
+
+- Build Command: `npm ci && npm run build`
+- Start Command: `npm start`
+- 应用会显式监听 Render 提供的 `PORT` 和 `0.0.0.0`
+- Render 默认文件系统会在重启或重新部署后清空。若已挂载 Persistent Disk，请把挂载路径和 `RADAR_DATA_DIR` 都设为 `/opt/render/project/src/data`；也可以继续使用 `BLOB_READ_WRITE_TOKEN` 保存刷新结果
+- 不要把 `CRON_SECRET`、AI API Key 或 Blob Token 提交进 GitHub，应只配置在 Render Environment 中
 
 ## 当前限制
 

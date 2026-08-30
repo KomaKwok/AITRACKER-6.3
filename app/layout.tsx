@@ -1,18 +1,7 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Geist } from "next/font/google";
 import { AppShell } from "@/components/app-shell";
 import { getDictionary } from "@/lib/i18n";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"]
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"]
-});
 
 export const metadata: Metadata = {
   title: "AI Radar",
@@ -28,7 +17,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className="antialiased">
         <AppShell
           locale={locale}
           labels={{

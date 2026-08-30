@@ -21,7 +21,6 @@ This definition makes the product more useful for spotting product motion early,
 - dashboard with visible freshness metrics and last updated time
 - normalized signal stream with filters and sorting
 - source coverage page with fetch metadata
-- trend summary for 7d and 30d windows
 - China vs Global comparison
 - manual refresh button
 - cron-compatible fetch route
@@ -30,10 +29,10 @@ This definition makes the product more useful for spotting product motion early,
 ## 4. How it was built
 
 1. Set up a Next.js 15 App Router app with TypeScript and Tailwind CSS.
-2. Chose a local JSON repository abstraction instead of Prisma to keep the interview MVP fast to run and demo.
-3. Defined normalized `Signal` and `Source` models plus a persistent local store.
+2. Chose a JSON repository abstraction with optional Vercel Blob or mounted-disk persistence.
+3. Defined normalized `Signal` and `Source` models plus bounded source history retention.
 4. Reduced the source scope to a smaller set of official update channels and added explicit status handling for blocked, empty, or successful sources.
-5. Built a fetch pipeline that performs source fetch, normalization, dedupe, tag enrichment, four-dimensional scoring, storage, and trend summary generation.
+5. Built a fetch pipeline that performs source fetch, normalization, dedupe, tag enrichment, four-dimensional scoring, history retention, and durable storage.
 6. Added an LLM abstraction for summaries and tags with a heuristic fallback when no API key is available.
 7. Built reusable UI components and the four required pages.
 8. Added scripts for seeding and manual fetch plus a cron-friendly API route for Vercel.

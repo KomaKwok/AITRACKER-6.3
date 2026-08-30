@@ -186,7 +186,11 @@ function selectBriefSignals(signals: Signal[]) {
     b.signalScore - a.signalScore || +new Date(b.publishedAt) - +new Date(a.publishedAt);
   const recentCutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
   const recentProducts = productSignals.filter((signal) => +new Date(signal.publishedAt) >= recentCutoff).sort(byPriority);
-  const selectedProducts = (recentProducts.length ? recentProducts : [...productSignals].sort(byPriority)).slice(0, 8);
+  const productPool = recentProducts.length ? recentProducts : [...productSignals].sort(byPriority);
+  const developingSignals = productPool.filter((signal) => signal.status === "developing");
+  const selectedProducts = [...developingSignals, ...productPool]
+    .filter((signal, index, list) => list.findIndex((candidate) => candidate.id === signal.id) === index)
+    .slice(0, 8);
   const selectedPapers = [...paperSignals].sort((a, b) => (a.sourceRank ?? 99) - (b.sourceRank ?? 99)).slice(0, 3);
   return [...selectedProducts, ...selectedPapers];
 }

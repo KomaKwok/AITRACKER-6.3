@@ -5,8 +5,8 @@ import { readStore, writeStore } from "@/lib/data/store";
 import { adapterRegistry } from "@/lib/radar/adapters";
 import { RawFetchedItem } from "@/lib/radar/adapter-utils";
 import { writeRadarExports } from "@/lib/radar/export";
+import { mergeSourceHistory } from "@/lib/radar/retention";
 import { calculateFirstHandScore, calculateHeatScore, calculateSignalScore } from "@/lib/radar/scoring";
-import { generateTrendSummary } from "@/lib/radar/trends";
 import { Signal, Source, Tag } from "@/lib/types";
 
 interface RefreshOptions {
@@ -19,6 +19,46 @@ const DEBUG_FETCH = process.env.DEBUG_FETCH === "1";
 
 function hash(value: string) {
   return crypto.createHash("sha1").update(value).digest("hex");
+}
+
+function normalizedPaperTitle(signal: Signal) {
+  return signal.title.toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff]+/g, " ").trim();
+}
+
+function isDuplicateSignal(candidate: Signal, signal: Signal) {
+  if (candidate.dedupeHash === signal.dedupeHash) return true;
+  if (candidate.externalId && signal.externalId && candidate.externalId === signal.externalId) return true;
+  return (
+    candidate.category === "Paper" &&
+    signal.category === "Paper" &&
+    normalizedPaperTitle(candidate) === normalizedPaperTitle(signal)
+  );
+}
+
+function dedupeStoredSignals(signals: Signal[]) {
+  const result: Signal[] = [];
+  const paperIndexes = new Map<string, number>();
+
+  for (const signal of signals) {
+    if (signal.category !== "Paper") {
+      result.push(signal);
+      continue;
+    }
+
+    const key = signal.externalId ?? normalizedPaperTitle(signal);
+    const existingIndex = paperIndexes.get(key);
+    if (existingIndex === undefined) {
+      paperIndexes.set(key, result.length);
+      result.push(signal);
+      continue;
+    }
+
+    if (signal.sourceId === "arxiv-ai-papers" && result[existingIndex]?.sourceId !== "arxiv-ai-papers") {
+      result[existingIndex] = signal;
+    }
+  }
+
+  return result;
 }
 
 function normalizeSources(sources: Source[]) {
@@ -116,13 +156,14 @@ async function normalizeSignal(source: Source, item: RawFetchedItem): Promise<Si
     tags,
     priority: source.priority
   });
-  const dedupeHash = hash(`${item.title}:${item.url}`);
+  const dedupeHash = hash(item.externalId ? `external:${item.externalId}` : `${item.title}:${item.url}`);
 
   return {
     id: dedupeHash.slice(0, 12),
     title: item.title,
-    ...(ai.titleZh ? { titleZh: ai.titleZh } : {}),
+    ...(item.titleZh || ai.titleZh ? { titleZh: item.titleZh ?? ai.titleZh } : {}),
     url: item.url,
+    ...(item.externalId ? { externalId: item.externalId } : {}),
     sourceId: source.id,
     sourceName: source.name,
     sourceType: source.sourceType,
@@ -139,7 +180,8 @@ async function normalizeSignal(source: Source, item: RawFetchedItem): Promise<Si
     signalScore,
     rawContentSnippet: item.snippet,
     dedupeHash,
-    ...(item.sourceRank ? { sourceRank: item.sourceRank } : {})
+    ...(item.sourceRank ? { sourceRank: item.sourceRank } : {}),
+    ...(item.status ? { status: item.status } : {})
   };
 }
 
@@ -158,9 +200,9 @@ async function runRefreshForSources(store: Awaited<ReturnType<typeof readStore>>
 
       for (const item of rawItems) {
         const signal = await normalizeSignal(source, item);
-        const duplicateInSource = sourceSignals.some((candidate) => candidate.dedupeHash === signal.dedupeHash);
+        const duplicateInSource = sourceSignals.some((candidate) => isDuplicateSignal(candidate, signal));
         const duplicateInOtherSources = nextSignals.some(
-          (candidate) => candidate.sourceId !== source.id && candidate.dedupeHash === signal.dedupeHash
+          (candidate) => candidate.sourceId !== source.id && isDuplicateSignal(candidate, signal)
         );
 
         if (!duplicateInSource && !duplicateInOtherSources) {
@@ -168,9 +210,14 @@ async function runRefreshForSources(store: Awaited<ReturnType<typeof readStore>>
         }
       }
 
+      const sourceHistory = mergeSourceHistory({
+        existingSignals: nextSignals,
+        freshSignals: sourceSignals,
+        source
+      });
       const preservedSignals = nextSignals.filter((signal) => signal.sourceId !== source.id);
       nextSignals.length = 0;
-      nextSignals.push(...preservedSignals, ...sourceSignals);
+      nextSignals.push(...preservedSignals, ...sourceHistory);
 
       source.lastFetchStatus = rawItems.length ? "success" : "empty";
       source.lastFetchMessage = rawItems.length
@@ -178,8 +225,8 @@ async function runRefreshForSources(store: Awaited<ReturnType<typeof readStore>>
           ? `Stored ${rawItems.length} curated papers from the latest Daily Papers batch`
           : `Stored ${rawItems.length} product updates from ${source.product}`
         : source.sourceType === "Research"
-          ? "No qualifying papers found in the Daily Papers feed"
-          : "No qualifying product updates found on the official page";
+          ? "No qualifying papers found; kept the latest successful paper batch"
+          : "No qualifying product updates found; kept retained source history";
       if (rawItems.length) {
         source.lastSuccessfulAt = new Date().toISOString();
       }
@@ -197,19 +244,24 @@ async function runRefreshForSources(store: Awaited<ReturnType<typeof readStore>>
     source.lastFetchedAt = new Date().toISOString();
   }
 
-  nextSignals.sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt));
-  const brief = await generateDashboardBrief(nextSignals);
+  const dedupedSignals = dedupeStoredSignals(nextSignals).sort(
+    (a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt)
+  );
+  const brief = await generateDashboardBrief(dedupedSignals);
 
   const updatedStore = {
     sources: allSources.map((source) => sources.find((candidate) => candidate.id === source.id) ?? source),
-    signals: nextSignals.slice(0, 300),
-    trendSummary: generateTrendSummary(nextSignals),
+    signals: dedupedSignals.slice(0, 300),
     brief,
     lastUpdatedAt: new Date().toISOString()
   };
 
   await writeStore(updatedStore);
-  await writeRadarExports(updatedStore);
+  try {
+    await writeRadarExports(updatedStore);
+  } catch (error) {
+    console.warn("[export] Local export skipped because this runtime does not provide writable local storage.", error);
+  }
   return updatedStore;
 }
 
@@ -225,7 +277,13 @@ export async function refreshRadarDataWithOptions(options: RefreshOptions = {}) 
   const sources = normalizedSources
     .filter((source) => source.active)
     .filter((source) => (options.sourceIds?.length ? options.sourceIds.includes(source.id) : true))
-    .filter((source) => (options.excludeSourceIds?.length ? !options.excludeSourceIds.includes(source.id) : true));
+    .filter((source) => (options.excludeSourceIds?.length ? !options.excludeSourceIds.includes(source.id) : true))
+    .filter((source) => {
+      if (!source.minRefreshIntervalHours || options.sourceIds?.includes(source.id) || !source.lastSuccessfulAt) {
+        return true;
+      }
+      return Date.now() - +new Date(source.lastSuccessfulAt) >= source.minRefreshIntervalHours * 60 * 60 * 1000;
+    });
 
   return runRefreshForSources(normalizedStore, sources);
 }

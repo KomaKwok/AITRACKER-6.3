@@ -24,6 +24,11 @@ export function SignalCard({
           score={signal.signalScore}
           labels={{ top: labels.topSignal, strong: labels.strongSignal, watch: labels.watch }}
         />
+        {signal.status === "developing" ? (
+          <span className="inline-flex items-center rounded-full bg-violet-50 px-2.5 py-1 text-[11px] font-semibold text-violet-700">
+            {locale === "zh" ? "前瞻 · 尚未发布" : "Developing · not released"}
+          </span>
+        ) : null}
       </div>
       <div className="mt-4 flex items-start justify-between gap-4">
         <div>

@@ -2,7 +2,9 @@ import { Source, Tag } from "@/lib/types";
 
 export interface RawFetchedItem {
   title: string;
+  titleZh?: string;
   url: string;
+  externalId?: string;
   company: string;
   product: string;
   publishedAt: string;
@@ -10,6 +12,7 @@ export interface RawFetchedItem {
   category: "Feature" | "Model" | "Platform" | "Deprecation" | "Pricing" | "Paper";
   tags?: Tag[];
   sourceRank?: number;
+  status?: "released" | "developing";
 }
 
 export interface SourceAdapter {
@@ -17,32 +20,60 @@ export interface SourceAdapter {
   fetch: (source: Source) => Promise<RawFetchedItem[]>;
 }
 
-const USER_AGENT = "AITracker/2.0";
+const USER_AGENT =
+  "Mozilla/5.0 (compatible; AITracker/2.1; +https://github.com/KomaKwok/AITRACKER-6.3)";
 const REQUEST_TIMEOUT_MS = 15000;
+const REQUEST_ATTEMPTS = 3;
+
+function wait(milliseconds: number) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
 
 export async function fetchText(url: string) {
-  const response = await fetch(url, {
-    headers: {
-      "User-Agent": USER_AGENT
-    },
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    next: { revalidate: 0 }
-  });
+  const errors: string[] = [];
 
-  if (!response.ok) {
-    throw new Error(`Fetch failed for ${url}: ${response.status}`);
+  for (let attempt = 1; attempt <= REQUEST_ATTEMPTS; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          "User-Agent": USER_AGENT,
+          Accept: "text/html,application/xhtml+xml,application/rss+xml,application/xml;q=0.9,*/*;q=0.8",
+          "Accept-Language": "en-US,en;q=0.8"
+        },
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+        next: { revalidate: 0 }
+      });
+
+      if (!response.ok) {
+        const message = `HTTP ${response.status}`;
+        errors.push(message);
+        if (attempt < REQUEST_ATTEMPTS && (response.status === 429 || response.status >= 500)) {
+          await wait(attempt * 750);
+          continue;
+        }
+        throw new Error(message);
+      }
+
+      const buffer = Buffer.from(await response.arrayBuffer());
+      const contentType = response.headers.get("content-type") ?? "";
+      const sniff = buffer.toString("ascii", 0, Math.min(buffer.length, 2048));
+      const declaredCharset =
+        contentType.match(/charset=([^;]+)/i)?.[1] ??
+        sniff.match(/charset=["']?([\w-]+)/i)?.[1] ??
+        "utf-8";
+      const normalizedCharset = /gbk|gb2312|gb18030/i.test(declaredCharset) ? "gb18030" : "utf-8";
+
+      return new TextDecoder(normalizedCharset).decode(buffer);
+    } catch (error) {
+      const detail = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+      if (!errors.includes(detail)) errors.push(detail);
+      if (attempt < REQUEST_ATTEMPTS) {
+        await wait(attempt * 750);
+      }
+    }
   }
 
-  const buffer = Buffer.from(await response.arrayBuffer());
-  const contentType = response.headers.get("content-type") ?? "";
-  const sniff = buffer.toString("ascii", 0, Math.min(buffer.length, 2048));
-  const declaredCharset =
-    contentType.match(/charset=([^;]+)/i)?.[1] ??
-    sniff.match(/charset=["']?([\w-]+)/i)?.[1] ??
-    "utf-8";
-  const normalizedCharset = /gbk|gb2312|gb18030/i.test(declaredCharset) ? "gb18030" : "utf-8";
-
-  return new TextDecoder(normalizedCharset).decode(buffer);
+  throw new Error(`Fetch failed for ${url} after ${REQUEST_ATTEMPTS} attempts: ${errors.join(" | ")}`);
 }
 
 export async function fetchFirstAvailableText(urls: string[]) {

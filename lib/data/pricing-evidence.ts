@@ -1,10 +1,9 @@
 import { readFile } from "node:fs/promises";
-import path from "node:path";
 import { PriceDateEvidence, PriceSnapshotEntry } from "@/lib/data/pricing-snapshot";
 import { pricingSnapshot } from "@/lib/data/pricing-snapshot";
+import { getDataFilePath, readPersistedJson } from "@/lib/data/persisted-json";
 
-const evidenceFile = path.join(process.cwd(), "data", "pricing-evidence.json");
-const snapshotFile = path.join(process.cwd(), "data", "pricing-snapshot.json");
+const evidenceFile = getDataFilePath("pricing-evidence.json");
 
 interface StoredPricingSnapshot {
   entries: PriceSnapshotEntry[];
@@ -12,13 +11,12 @@ interface StoredPricingSnapshot {
 }
 
 export async function getPricingEntries() {
-  try {
-    const raw = await readFile(snapshotFile, "utf8");
-    const parsed = JSON.parse(raw) as StoredPricingSnapshot;
-    return parsed.entries?.length ? parsed.entries : pricingSnapshot;
-  } catch {
-    return pricingSnapshot;
-  }
+  const parsed = await readPersistedJson<StoredPricingSnapshot>({
+    filename: "pricing-snapshot.json",
+    blobPathname: "ai-radar/pricing-snapshot.json",
+    fallback: { entries: pricingSnapshot, refreshedAt: pricingSnapshot[0]?.verifiedAt ?? new Date(0).toISOString() }
+  });
+  return parsed.entries?.length ? parsed.entries : pricingSnapshot;
 }
 
 export async function readPricingEvidence() {

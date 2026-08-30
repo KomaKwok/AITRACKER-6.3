@@ -40,7 +40,7 @@ async function refreshInBackground() {
   }
 }
 
-const server = run("npx", ["next", "start", "-p", port], { stdio: "inherit" });
+const server = run("npx", ["next", "start", "-H", "0.0.0.0", "-p", port], { stdio: "inherit" });
 
 server.on("exit", (code) => {
   process.exit(code ?? 0);

@@ -1,5 +1,5 @@
 {
-  "refreshedAt": "2026-08-22T03:07:49.697Z",
+  "refreshedAt": "2026-08-30T05:49:41.646Z",
   "entries": [
     {
       "company": "OpenAI",
@@ -11,10 +11,10 @@
       "note": "Official OpenAI model catalog flagship rate; standard short-context processing.",
       "sourceUrl": "https://developers.openai.com/api/docs/models",
       "officialUpdatedAt": null,
-      "verifiedAt": "2026-08-22T03:07:49.697Z",
+      "verifiedAt": "2026-08-30T05:49:41.646Z",
       "verificationStatus": "verified",
       "verificationMessage": "Official page fetched and flagship price parsed successfully.",
-      "lastAttemptedAt": "2026-08-22T03:07:49.697Z",
+      "lastAttemptedAt": "2026-08-30T05:49:41.646Z",
       "priceChangedAt": "2026-08-22T02:32:33.692Z"
     },
     {
@@ -27,10 +27,10 @@
       "note": "Official Claude API base input and output token rates.",
       "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
       "officialUpdatedAt": null,
-      "verifiedAt": "2026-08-22T03:07:49.697Z",
+      "verifiedAt": "2026-08-30T05:49:41.646Z",
       "verificationStatus": "verified",
       "verificationMessage": "Official page fetched and flagship price parsed successfully.",
-      "lastAttemptedAt": "2026-08-22T03:07:49.697Z",
+      "lastAttemptedAt": "2026-08-30T05:49:41.646Z",
       "priceChangedAt": "2026-08-22T02:42:12.378Z"
     },
     {
@@ -42,11 +42,11 @@
       "basis": "API token",
       "note": "Tencent TokenHub flagship text model, online inference in Guangzhou.",
       "sourceUrl": "https://cloud.tencent.com/document/product/1823/130055",
-      "officialUpdatedAt": "2026-08-21T07:42:52.000Z",
-      "verifiedAt": "2026-08-22T03:07:49.697Z",
+      "officialUpdatedAt": "2026-08-28T06:28:00.000Z",
+      "verifiedAt": "2026-08-30T05:49:41.646Z",
       "verificationStatus": "verified",
       "verificationMessage": "Official page fetched and flagship price parsed successfully.",
-      "lastAttemptedAt": "2026-08-22T03:07:49.697Z",
+      "lastAttemptedAt": "2026-08-30T05:49:41.646Z",
       "priceChangedAt": "2026-08-22T00:00:00.000Z"
     },
     {
@@ -59,10 +59,10 @@
       "note": "Official DeepSeek cache-miss input and output token rates.",
       "sourceUrl": "https://www.deepseek.com/platform/",
       "officialUpdatedAt": null,
-      "verifiedAt": "2026-08-22T03:07:49.697Z",
+      "verifiedAt": "2026-08-30T05:49:41.646Z",
       "verificationStatus": "verified",
       "verificationMessage": "Official page fetched and flagship price parsed successfully.",
-      "lastAttemptedAt": "2026-08-22T03:07:49.697Z",
+      "lastAttemptedAt": "2026-08-30T05:49:41.646Z",
       "priceChangedAt": "2026-08-22T02:42:12.378Z"
     },
     {
@@ -72,13 +72,14 @@
       "headlinePrice": "$0.3 / 1M input",
       "secondaryPrice": "$1.2 / 1M output",
       "basis": "API token",
-      "note": "Official pricing page does not expose a clear last-updated date in fetched page content.",
-      "sourceUrl": "https://platform.minimax.io/subscribe/token-plan?tab=api-enterprise",
+      "note": "Official MiniMax API rate for the standard <=512K context tier.",
+      "sourceUrl": "https://platform.minimax.io/docs/guides/pricing-paygo",
       "officialUpdatedAt": null,
-      "verifiedAt": "2026-08-22T00:00:00.000Z",
-      "verificationStatus": "stale",
-      "verificationMessage": "Official page loaded, but the flagship price row could not be parsed.",
-      "lastAttemptedAt": "2026-08-22T03:07:49.697Z"
+      "verifiedAt": "2026-08-30T05:49:41.646Z",
+      "verificationStatus": "verified",
+      "verificationMessage": "Official page fetched and flagship price parsed successfully.",
+      "lastAttemptedAt": "2026-08-30T05:49:41.646Z",
+      "priceChangedAt": "2026-08-22T00:00:00.000Z"
     },
     {
       "company": "豆包 / 方舟",
@@ -87,13 +88,14 @@
       "headlinePrice": "¥6 / 1M input",
       "secondaryPrice": "¥30 / 1M output",
       "basis": "API token",
-      "note": "Current flagship Coding and Agent model rate shown by Volcano Engine.",
-      "sourceUrl": "https://www.volcengine.com/product/yunque",
+      "note": "Official Volcano Engine Ark pay-as-you-go rate for the current Doubao flagship model.",
+      "sourceUrl": "https://www.volcengine.com/product/ark",
       "officialUpdatedAt": null,
-      "verifiedAt": "2026-08-22T00:00:00.000Z",
-      "verificationStatus": "stale",
-      "verificationMessage": "Official page loaded, but the flagship price row could not be parsed.",
-      "lastAttemptedAt": "2026-08-22T03:07:49.697Z"
+      "verifiedAt": "2026-08-30T05:49:41.646Z",
+      "verificationStatus": "verified",
+      "verificationMessage": "Official page fetched and flagship price parsed successfully.",
+      "lastAttemptedAt": "2026-08-30T05:49:41.646Z",
+      "priceChangedAt": "2026-08-22T00:00:00.000Z"
     }
   ]
 }
