@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { RefreshController } from "@/components/refresh-controller";
 import { AppShell } from "@/components/app-shell";
 import { getDictionary } from "@/lib/i18n";
 import "./globals.css";
@@ -18,6 +19,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className="antialiased">
+        <RefreshController locale={locale}>
         <AppShell
           locale={locale}
           labels={{
@@ -34,6 +36,7 @@ export default async function RootLayout({
         >
           {children}
         </AppShell>
+        </RefreshController>
       </body>
     </html>
   );

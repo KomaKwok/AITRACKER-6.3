@@ -45,41 +45,39 @@ export const openAiAdapter: SourceAdapter = {
   }
 };
 
-export const openAiFrontierWatchAdapter: SourceAdapter = {
-  sourceId: "openai-frontier-watch",
+// Parse the current feed instead of synthesizing a specific model announcement.
+export function parseOpenAiNews(xml: string, source: import("@/lib/types").Source): RawFetchedItem[] {
+  const readTag = (block: string, tag: string) => stripHtml(
+    (block.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, "i"))?.[1] ?? "")
+      .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+  ).trim();
+  return [...xml.matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi)].flatMap((match) => {
+    const block = match[1];
+    const title = readTag(block, "title");
+    const url = readTag(block, "link");
+    const date = Date.parse(readTag(block, "pubDate"));
+    const snippet = readTag(block, "description");
+    try {
+      const link = new URL(url);
+      if (link.protocol !== "https:" || !["openai.com", "www.openai.com"].includes(link.hostname)) return [];
+    } catch { return []; }
+    if (!title || !Number.isFinite(date) || date > Date.now() + 86400000) return [];
+    const text = `${title} ${snippet}`;
+    return [{
+      title, url, company: source.company, product: source.product,
+      publishedAt: new Date(date).toISOString(), snippet,
+      category: /deprecat|retire|sunset/i.test(text) ? "Deprecation" as const
+        : /pric|billing/i.test(text) ? "Pricing" as const
+        : /model|gpt|reasoning/i.test(text) ? "Model" as const : "Feature" as const,
+      tags: inferTags(title, snippet)
+    }];
+  }).sort((a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt));
+}
+
+export const openAiNewsAdapter: SourceAdapter = {
+  sourceId: "openai-news",
   async fetch(source) {
-    const { url, text: html } = await fetchFirstAvailableText([source.url, ...(source.fallbackUrls ?? [])]);
-    const rssItem = [...html.matchAll(/<item>([\s\S]*?)<\/item>/gi)]
-      .map((match) => match[1] ?? "")
-      .find((item) => /Astra/i.test(item));
-    const evidenceBlock = rssItem ?? html;
-    const text = stripHtml(evidenceBlock.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1"));
-    const hasVerifiedUpcomingModel =
-      /Astra/i.test(text) &&
-      (/upcoming models?|frontier models?|Astra models?|critical cyber/i.test(text) ||
-        /responding-next-frontier-critical-cyber-capabilities/i.test(evidenceBlock));
-
-    if (!hasVerifiedUpcomingModel) {
-      return [];
-    }
-
-    const rssDate = evidenceBlock.match(/<pubDate>([\s\S]*?)<\/pubDate>/i)?.[1];
-    const rssLink = evidenceBlock.match(/<link>([\s\S]*?)<\/link>/i)?.[1]?.replace(/<!\[CDATA\[|\]\]>/g, "").trim();
-    const publishedAt = parseDateGuess(rssDate ?? text.match(/August\s+(?:7|18),\s+2026/i)?.[0] ?? text);
-    return [
-      {
-        title: "OpenAI confirms Astra is an upcoming model while expanding safety testing",
-        titleZh: "OpenAI 确认 Astra 正在开发",
-        url: rssLink || (url.endsWith(".xml") ? source.url : url),
-        company: source.company,
-        product: source.product,
-        publishedAt,
-        snippet:
-          "OpenAI says internal evaluations show a major step forward in agentic coding and cybersecurity. Astra is an upcoming model, but its release timing and any ChatGPT rollout remain unconfirmed while safeguards are expanded.",
-        category: "Model",
-        tags: ["Model Release", "Agent", "Coding"],
-        status: "developing"
-      }
-    ];
+    const { text } = await fetchFirstAvailableText([source.url]);
+    return parseOpenAiNews(text, source);
   }
 };

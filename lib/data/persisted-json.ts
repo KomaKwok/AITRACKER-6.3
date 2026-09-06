@@ -1,5 +1,6 @@
 import { get, put } from "@vercel/blob";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile, rename, rm } from "node:fs/promises";
+import { randomUUID } from "node:crypto";
 import path from "node:path";
 
 const blobAccess = "private" as const;
@@ -74,7 +75,13 @@ export async function writePersistedJson(input: {
   try {
     const localPath = getDataFilePath(input.filename);
     await mkdir(path.dirname(localPath), { recursive: true });
-    await writeFile(localPath, serialized, "utf8");
+    const temporaryPath = `${localPath}.${randomUUID()}.tmp`;
+    try {
+      await writeFile(temporaryPath, serialized, "utf8");
+      await rename(temporaryPath, localPath);
+    } finally {
+      await rm(temporaryPath, { force: true });
+    }
   } catch (error) {
     if (!remoteWriteSucceeded) {
       throw error;

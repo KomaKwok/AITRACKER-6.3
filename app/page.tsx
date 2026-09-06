@@ -35,7 +35,7 @@ export default async function DashboardPage() {
                   <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{t.dashboard.lastUpdated}</div>
                   <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
                     <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                    {locale === "zh" ? "最新快照" : "Latest snapshot"}
+                    {locale === "zh" ? "最近成功抓取" : "Last successful fetch"}
                   </span>
                 </div>
                 <div className="mt-2 flex items-end justify-between gap-4">
@@ -47,7 +47,7 @@ export default async function DashboardPage() {
               </div>
             </div>
           </div>
-          <DashboardBriefCard brief={data.brief} locale={locale} />
+          <DashboardBriefCard brief={data.brief} locale={locale} signals={data.signals} />
           <PriceBoard entries={priceEntries} locale={locale} />
         </div>
       </section>

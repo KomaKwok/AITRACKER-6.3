@@ -2,16 +2,15 @@ import { Source } from "@/lib/types";
 
 export const defaultSources: Source[] = [
   {
-    id: "openai-frontier-watch",
-    name: "OpenAI Frontier Model Watch",
+    id: "openai-news",
+    name: "OpenAI Official News",
     company: "OpenAI",
-    product: "Astra / ChatGPT watch",
-    url: "https://openai.com/index/responding-next-frontier-critical-cyber-capabilities/",
-    fallbackUrls: ["https://openai.com/news/rss.xml"],
+    product: "OpenAI / ChatGPT",
+    url: "https://openai.com/news/rss.xml",
     region: "Global",
     sourceType: "Official",
     priority: 10,
-    fetchStrategy: "openai-frontier-watch",
+    fetchStrategy: "openai-news",
     active: true,
     lastFetchedAt: null
   },

@@ -1,4 +1,6 @@
 import crypto from "node:crypto";
+import { summarizeSnippet, suggestTags } from "@/lib/ai/fallback";
+import { buildFallbackBrief, isBriefCurrent } from "@/lib/radar/brief";
 import { enrichSignalWithAi, generateDashboardBrief } from "@/lib/ai/client";
 import { defaultSources } from "@/lib/data/default-sources";
 import { readStore, writeStore } from "@/lib/data/store";
@@ -66,22 +68,16 @@ function normalizeSources(sources: Source[]) {
   return defaultSources.map((source) => ({ ...source, ...sourceMap.get(source.id) }));
 }
 
-function buildReadableSummary(item: RawFetchedItem, aiSummary: string) {
-  const sentence = item.snippet
-    .split(/[.!?]/)
-    .map((part) => part.trim())
-    .find((part) => part.length > 30);
-
-  return sentence ? `${sentence.replace(/[.;,:-]+$/, "")}.` : aiSummary;
-}
-
 async function withSourceTimeout<T>(promise: Promise<T>, source: Source): Promise<T> {
-  return Promise.race([
-    promise,
-    new Promise<T>((_, reject) =>
-      setTimeout(() => reject(new Error(`${source.name} timed out after ${SOURCE_TIMEOUT_MS / 1000}s`)), SOURCE_TIMEOUT_MS)
-    )
-  ]);
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      promise,
+      new Promise<T>((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`${source.name} timed out`)), SOURCE_TIMEOUT_MS);
+      })
+    ]);
+  } finally { clearTimeout(timer); }
 }
 
 function isProductSignal(item: RawFetchedItem) {
@@ -127,11 +123,14 @@ async function fetchSourceItems(source: Source) {
   }
 
   const items = await adapter.fetch(source);
-  return source.sourceType === "Research" ? items.slice(0, 10) : items.filter(isProductSignal);
+  return source.sourceType === "Research" ? items.slice(0, 10) : items.filter(isProductSignal).slice(0, 16);
 }
 
-async function normalizeSignal(source: Source, item: RawFetchedItem): Promise<Signal> {
-  const ai = await enrichSignalWithAi({
+async function normalizeSignal(source: Source, item: RawFetchedItem, previous?: Signal, useAi = true): Promise<Signal> {
+  const ai = previous && previous.rawContentSnippet === item.snippet && previous.title === item.title
+    ? { summary: previous.summary, titleZh: previous.titleZh, tags: previous.tags }
+    : !useAi ? { summary: summarizeSnippet(item.title, item.snippet), tags: suggestTags(item.title, item.snippet) }
+    : await enrichSignalWithAi({
     title: item.title,
     snippet: item.snippet,
     contentKind: item.category === "Paper" ? "AI research paper" : "AI product update"
@@ -173,7 +172,7 @@ async function normalizeSignal(source: Source, item: RawFetchedItem): Promise<Si
     category: item.category,
     publishedAt: item.publishedAt,
     fetchedAt: new Date().toISOString(),
-    summary: buildReadableSummary(item, ai.summary),
+    summary: ai.summary,
     tags,
     firstHandScore,
     heatScore,
@@ -193,13 +192,18 @@ async function runRefreshForSources(store: Awaited<ReturnType<typeof readStore>>
   const nextSignals = [...store.signals];
   const allSources = normalizeSources(store.sources.length ? store.sources : defaultSources);
 
-  for (const source of sources) {
+  const fetched = await Promise.allSettled(sources.map((source) => withSourceTimeout(fetchSourceItems(source), source)));
+  const aiDeadline = Date.now() + 35000;
+  for (const [sourceIndex, source] of sources.entries()) {
     try {
-      const rawItems = await withSourceTimeout(fetchSourceItems(source), source);
+      const result = fetched[sourceIndex];
+      if (result.status === "rejected") throw result.reason;
+      const rawItems = result.value;
       const sourceSignals: Signal[] = [];
 
       for (const item of rawItems) {
-        const signal = await normalizeSignal(source, item);
+        const previous = nextSignals.find((signal) => signal.sourceId === source.id && signal.title === item.title && signal.url === item.url);
+        const signal = await normalizeSignal(source, item, previous, Date.now() < aiDeadline);
         const duplicateInSource = sourceSignals.some((candidate) => isDuplicateSignal(candidate, signal));
         const duplicateInOtherSources = nextSignals.some(
           (candidate) => candidate.sourceId !== source.id && isDuplicateSignal(candidate, signal)
@@ -247,13 +251,26 @@ async function runRefreshForSources(store: Awaited<ReturnType<typeof readStore>>
   const dedupedSignals = dedupeStoredSignals(nextSignals).sort(
     (a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt)
   );
-  const brief = await generateDashboardBrief(dedupedSignals);
+  const newSignals = dedupedSignals.filter((signal) => !store.signals.some((old) => old.id === signal.id)).length;
+  const changedSignals = dedupedSignals.filter((signal) => store.signals.some((old) =>
+    old.id === signal.id && (old.rawContentSnippet !== signal.rawContentSnippet || old.title !== signal.title)
+  )).length;
+  const successfulSources = sources.filter((source) => source.lastFetchStatus === "success").length;
+  const briefIsValid = isBriefCurrent(store.brief, dedupedSignals);
+  const brief = newSignals || changedSignals ? await generateDashboardBrief(dedupedSignals)
+    : briefIsValid ? store.brief : buildFallbackBrief(dedupedSignals);
 
   const updatedStore = {
     sources: allSources.map((source) => sources.find((candidate) => candidate.id === source.id) ?? source),
     signals: dedupedSignals.slice(0, 300),
     brief,
-    lastUpdatedAt: new Date().toISOString()
+    lastUpdatedAt: successfulSources ? new Date().toISOString() : store.lastUpdatedAt,
+    lastCheckedAt: new Date().toISOString(),
+    refreshReport: {
+      newSignals, changedSignals, successfulSources,
+      failedSources: sources.filter((source) => source.lastFetchStatus === "error").length,
+      emptySources: sources.filter((source) => source.lastFetchStatus === "empty").length
+    }
   };
 
   await writeStore(updatedStore);

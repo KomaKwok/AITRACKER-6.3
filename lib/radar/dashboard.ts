@@ -67,9 +67,9 @@ export function selectDashboardSections(signals: Signal[], now = new Date()) {
   ]);
   const recentSignals = selectDiverseSignals(recentCandidates, DASHBOARD_NEWS_TARGET, 2);
 
-  const priorityScore = (signal: Signal) => signal.signalScore + (signal.status === "developing" ? 10 : 0);
+  const priorityScore = (signal: Signal) => signal.signalScore;
   const byPriority = (a: Signal, b: Signal) =>
-    priorityScore(b) - priorityScore(a) || +new Date(b.publishedAt) - +new Date(a.publishedAt);
+    +new Date(b.publishedAt) - +new Date(a.publishedAt) || priorityScore(b) - priorityScore(a);
   const radarCandidates = uniqueSignals([
     ...productSignals.filter((signal) => withinWindow(signal, RADAR_PRIMARY_DAYS, now)).sort(byPriority),
     ...productSignals.filter((signal) => withinWindow(signal, RADAR_BACKFILL_DAYS, now)).sort(byPriority)

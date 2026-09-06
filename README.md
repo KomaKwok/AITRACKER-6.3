@@ -4,7 +4,7 @@
 
 ## 当前覆盖
 
-- OpenAI: `OpenAI API Changelog`
+- OpenAI: 官方最新 RSS 资讯 + `OpenAI API Changelog`；不固定追踪或置顶 Astra 等单个模型
 - Anthropic: `Anthropic API Release Notes` + `Claude App Release Notes`
 - DeepSeek: `DeepSeek API Change Log`
 - MiniMax: `MiniMax Agent Changelog`
@@ -72,7 +72,7 @@ CRON_SECRET=your-secret
 
 说明：
 
-- 如果同时配置 `OPENAI_API_KEY` 和 `DEEPSEEK_API_KEY`，默认优先使用 OpenAI 做摘要增强
+- 如果同时配置 `OPENAI_API_KEY` 和 `DEEPSEEK_API_KEY`，默认优先使用 DeepSeek 做摘要增强
 - 如果都不配置，则使用本地启发式摘要
 - `CRON_SECRET` 用于保护定时抓取接口
 
@@ -102,6 +102,11 @@ CRON_SECRET=your-secret
 - Build Command: `npm ci && npm run build`
 - Start Command: `npm start`
 - 应用会显式监听 Render 提供的 `PORT` 和 `0.0.0.0`
+- 免费方案无需增购服务：冷启动首次访问自动抓取；页面显示进度，完成后自动加载结果，无需再手动刷新。启动脚本不再额外启动独立抓取进程，避免两个进程同时改写数据
+- 同一实例的自动检查间隔为 10 分钟；首次访问与返回浏览器标签页会触发检查，不靠定时保活。手动“更新资讯”仍可触发抓取（各来源自身频率限制继续生效）
+- 新增、内容变化、无新增、部分失败会分别提示；失败时展示历史数据并说明状态，不把失败标成最新成功。首页事实摘要附原文链接，不为每次刷新强行生成新事件
+- 免费实例休眠期间不能后台持续抓取，也不能持久保存本地更新。下次唤醒重新抓取可恢复当前资讯，但不能恢复已从来源移除的历史记录；平台冷启动等待仍然存在。参见 [Render 免费服务说明](https://render.com/docs/free)
+- `GET /api/refresh` 查询任务状态；`POST /api/refresh` 启动任务并返回 202，客户端按实际状态等待完成。`POST /api/refresh?mode=auto` 使用自动检查冷却时间
 - Render 默认文件系统会在重启或重新部署后清空。若已挂载 Persistent Disk，请把挂载路径和 `RADAR_DATA_DIR` 都设为 `/opt/render/project/src/data`；也可以继续使用 `BLOB_READ_WRITE_TOKEN` 保存刷新结果
 - 不要把 `CRON_SECRET`、AI API Key 或 Blob Token 提交进 GitHub，应只配置在 Render Environment 中
 

@@ -25,7 +25,7 @@ export function summarizeSnippet(title: string, snippet: string) {
     .trim();
 
   if (!text) {
-    return `${title} signals a notable product update from a high-value AI source.`;
+    return `${title}. No additional source detail is available; needs verification.`;
   }
 
   const changelogMatch = text.match(
@@ -43,7 +43,7 @@ export function summarizeSnippet(title: string, snippet: string) {
     .map((part) => part.trim())
     .find((part) => part.length > 28 && !/^(github|demo|discord|paper|tech report)$/i.test(part));
   if (!firstSentence) {
-    return `${title} signals a notable product update from a high-value AI source.`;
+    return `${title}. No additional source detail is available; needs verification.`;
   }
 
   const tightened = firstSentence

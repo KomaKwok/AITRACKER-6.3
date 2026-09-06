@@ -22,6 +22,6 @@ export function buildSeedStore(): RadarStore {
   return {
     sources: defaultSources,
     signals,
-    lastUpdatedAt: new Date().toISOString()
+    lastUpdatedAt: null
   };
 }

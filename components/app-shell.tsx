@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Route } from "next";
 import { Radar } from "lucide-react";
 import { LanguageToggle } from "@/components/language-toggle";
+import { FreshDataGate } from "@/components/refresh-controller";
 import { RefreshButton } from "@/components/refresh-button";
 import { Locale } from "@/lib/i18n";
 
@@ -65,7 +66,7 @@ export function AppShell({
           </nav>
         </div>
       </header>
-      <main className="flex-1">{children}</main>
+      <main className="flex-1"><FreshDataGate>{children}</FreshDataGate></main>
     </div>
   );
 }

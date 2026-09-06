@@ -4,12 +4,12 @@ import { anthropicApiAdapter, anthropicAppsAdapter } from "@/lib/radar/sources/a
 import { deepSeekAdapter } from "@/lib/radar/sources/deepseek";
 import { doubaoModelAdapter, doubaoProductAdapter } from "@/lib/radar/sources/doubao";
 import { minimaxAdapter } from "@/lib/radar/sources/minimax";
-import { openAiAdapter, openAiFrontierWatchAdapter } from "@/lib/radar/sources/openai";
+import { openAiAdapter, openAiNewsAdapter } from "@/lib/radar/sources/openai";
 import { huggingFaceDailyPapersAdapter } from "@/lib/radar/sources/huggingface";
 
 const adapters: SourceAdapter[] = [
   openAiAdapter,
-  openAiFrontierWatchAdapter,
+  openAiNewsAdapter,
   anthropicApiAdapter,
   anthropicAppsAdapter,
   deepSeekAdapter,

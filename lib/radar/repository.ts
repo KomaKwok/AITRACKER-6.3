@@ -1,5 +1,6 @@
-import { readStore, writeStore } from "@/lib/data/store";
+import { readStore } from "@/lib/data/store";
 import { defaultSources } from "@/lib/data/default-sources";
+import { buildFallbackBrief, isBriefCurrent } from "@/lib/radar/brief";
 import { buildSeedStore } from "@/lib/radar/seed";
 import { Signal, Source } from "@/lib/types";
 
@@ -8,29 +9,15 @@ function normalizeStoreSources(store: Awaited<ReturnType<typeof readStore>>) {
   const sourceMap = new Map(store.sources.map((source) => [source.id, source]));
   const sources = defaultSources.map((source) => ({ ...source, ...sourceMap.get(source.id) }));
   const signals = store.signals.filter((signal) => defaultSourceIds.has(signal.sourceId));
-  return { ...store, sources, signals };
+  const brief = isBriefCurrent(store.brief, signals)
+    ? store.brief : buildFallbackBrief(signals);
+  return { ...store, sources, signals, brief };
 }
 
 export async function ensureSeededStore() {
   const store = await readStore();
-  if (!store.sources.length && !store.signals.length) {
-    const seeded = buildSeedStore();
-    await writeStore(seeded);
-    return seeded;
-  }
-  const normalized = normalizeStoreSources(store);
-  if (
-    normalized.sources.length !== store.sources.length ||
-    normalized.signals.length !== store.signals.length ||
-    normalized.sources.some((source, index) => source.id !== store.sources[index]?.id)
-  ) {
-    await writeStore({
-      ...store,
-      sources: normalized.sources,
-      signals: normalized.signals
-    });
-  }
-  return normalized;
+  if (!store.sources.length && !store.signals.length) return buildSeedStore();
+  return normalizeStoreSources(store);
 }
 
 export async function getAllSignals() {

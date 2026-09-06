@@ -12,6 +12,7 @@
     "start": "node scripts/start-with-refresh.mjs",
     "start:next": "next start",
     "lint": "next lint",
+    "test": "tsx --test tests/*.test.ts",
     "seed": "tsx scripts/seed.ts",
     "fetch": "tsx scripts/fetch.ts",
     "translate:titles": "tsx scripts/backfill-title-zh.ts",

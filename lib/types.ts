@@ -4,7 +4,7 @@ export type SourceType = "Official" | "Research";
 
 export type FetchStrategy =
   | "openai-api-changelog"
-  | "openai-frontier-watch"
+  | "openai-news"
   | "anthropic-api-release-notes"
   | "anthropic-claude-release-notes"
   | "deepseek-api-updates"
@@ -91,4 +91,12 @@ export interface RadarStore {
   signals: Signal[];
   brief?: DashboardBrief;
   lastUpdatedAt: string | null;
+  lastCheckedAt?: string;
+  refreshReport?: {
+    newSignals: number;
+    changedSignals: number;
+    successfulSources: number;
+    failedSources: number;
+    emptySources: number;
+  };
 }

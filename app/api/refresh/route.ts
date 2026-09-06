@@ -1,44 +1,18 @@
-import { NextResponse } from "next/server";
-import { refreshRadarDataWithOptions } from "@/lib/radar/fetchers";
-import { refreshPricingSnapshot } from "@/lib/pricing/refresh";
+import { after, NextRequest, NextResponse } from "next/server";
+import { refreshJob } from "@/lib/radar/refresh-job";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-let refreshInProgress = false;
+export async function GET() {
+  return NextResponse.json(refreshJob.status(), { headers: { "Cache-Control": "no-store" } });
+}
 
-export async function POST() {
-  if (refreshInProgress) {
-    return NextResponse.json(
-      {
-        ok: false,
-        message: "Refresh is already running. Please wait for the current fetch to finish."
-      },
-      { status: 409 }
-    );
-  }
-
-  refreshInProgress = true;
-
-  try {
-    const [store, pricing] = await Promise.all([refreshRadarDataWithOptions(), refreshPricingSnapshot()]);
-    return NextResponse.json({
-      ok: true,
-      message: "Refresh completed.",
-      totalSignals: store.signals.length,
-      pricingVerified: pricing.verifiedCount,
-      lastUpdatedAt: store.lastUpdatedAt
-    });
-  } catch (error) {
-    console.error("[refresh] refresh failed", error);
-    return NextResponse.json(
-      {
-        ok: false,
-        message: error instanceof Error ? error.message : "Refresh failed."
-      },
-      { status: 500 }
-    );
-  } finally {
-    refreshInProgress = false;
-  }
+export async function POST(request: NextRequest) {
+  const job = refreshJob.start(request.nextUrl.searchParams.get("mode") === "auto");
+  after(() => job);
+  return NextResponse.json(refreshJob.status(), {
+    status: refreshJob.status().state === "running" ? 202 : 200,
+    headers: { "Cache-Control": "no-store" }
+  });
 }

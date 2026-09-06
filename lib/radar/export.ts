@@ -5,10 +5,6 @@ import { zhCN } from "date-fns/locale";
 import { getDataDirectory } from "@/lib/data/persisted-json";
 import { RadarStore, Signal } from "@/lib/types";
 
-const exportDir = path.join(getDataDirectory(), "exports");
-const markdownFile = path.join(exportDir, "latest-links-zh.md");
-const jsonFile = path.join(exportDir, "latest-links.json");
-
 function formatDate(value: string) {
   return format(new Date(value), "yyyy-MM-dd HH:mm", { locale: zhCN });
 }
@@ -77,6 +73,9 @@ function buildMarkdown(store: RadarStore) {
 }
 
 export async function writeRadarExports(store: RadarStore) {
+  const exportDir = path.join(getDataDirectory(), "exports");
+  const markdownFile = path.join(exportDir, "latest-links-zh.md");
+  const jsonFile = path.join(exportDir, "latest-links.json");
   await mkdir(exportDir, { recursive: true });
   await writeFile(markdownFile, buildMarkdown(store), "utf8");
   await writeFile(jsonFile, JSON.stringify(store, null, 2), "utf8");

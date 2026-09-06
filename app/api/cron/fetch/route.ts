@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { refreshRadarData } from "@/lib/radar/fetchers";
-import { refreshPricingSnapshot } from "@/lib/pricing/refresh";
+import { refreshJob } from "@/lib/radar/refresh-job";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -12,12 +11,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ ok: false, message: "Unauthorized" }, { status: 401 });
   }
 
-  const [store, pricing] = await Promise.all([refreshRadarData(), refreshPricingSnapshot()]);
-  return NextResponse.json({
-    ok: true,
-    message: "Scheduled fetch completed.",
-    totalSignals: store.signals.length,
-    pricingVerified: pricing.verifiedCount,
-    lastUpdatedAt: store.lastUpdatedAt
-  });
+  await refreshJob.start();
+  const status = refreshJob.status();
+  return NextResponse.json({ ...status, ok: status.state !== "error" });
 }
